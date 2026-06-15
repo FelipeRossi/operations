@@ -100,7 +100,8 @@ const ACFG={
 let WK=[], IND=[], PLANES=[], STOCK=[];
 
 async function fetchCSV(url){
-  const r=await fetch(url);
+  const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(url);
+  const r=await fetch(proxy);
   const t=await r.text();
   return t.trim().split('\n').map(row=>row.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
 }
