@@ -100,10 +100,20 @@ const ACFG={
 let WK=[], IND=[], PLANES=[], STOCK=[];
 
 async function fetchCSV(url){
-  const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(url);
-  const r=await fetch(proxy);
-  const t=await r.text();
-  return t.trim().split('\n').map(row=>row.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
+  const proxies=[
+    'https://corsproxy.io/?'+encodeURIComponent(url),
+    'https://api.allorigins.win/raw?url='+encodeURIComponent(url),
+    url
+  ];
+  for(const proxy of proxies){
+    try{
+      const r=await fetch(proxy);
+      if(!r.ok) continue;
+      const t=await r.text();
+      if(t.length>10) return t.trim().split('\n').map(row=>row.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
+    }catch(e){continue;}
+  }
+  throw new Error('No se pudo conectar al Sheet. Verifica que esté publicado.');
 }
 
 function parseNum(v){
