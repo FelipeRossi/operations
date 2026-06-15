@@ -126,24 +126,22 @@ async function cargarDatos(){
 
     // Parsear DATA
     const headers=dataRows[0];
-    WK=headers.slice(5);
+    WK=headers.slice(6);
     IND=[];
     for(let i=1;i<dataRows.length;i++){
       const row=dataRows[i];
       if(!row[0])continue;
       const id=row[0].toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,10);
       const objFijo=parseNum(row[4]);
-      const real=row.slice(5).map(v=>parseNum(v));
-      // detectar si es fila OBJ o Real para variables
+      const unidad=row[5]||'';
+      const real=row.slice(6).map(v=>parseNum(v));
       const isOBJ=row[0].includes('OBJ');
-      const isReal=row[0].includes('Real');
       if(isOBJ){
-        IND.push({id:id+'obj',label:row[0],area:row[1],logica:row[3],objFijo:null,obj:real,real:[],isObjRow:true});
+        IND.push({id:id+'obj',label:row[0],area:row[1],logica:row[3],objFijo:null,unidad,obj:real,real:[],isObjRow:true});
       } else {
-        // buscar fila OBJ correspondiente
         const labelBase=row[0].replace(' Real','').replace(' OBJ','');
         const objRow=IND.find(x=>x.isObjRow && x.label.replace(' OBJ','')===labelBase);
-        IND.push({id,label:row[0].replace(' Real',''),area:row[1],logica:row[3],objFijo,obj:objRow?objRow.obj:null,real,isObjRow:false});
+        IND.push({id,label:row[0].replace(' Real',''),area:row[1],logica:row[3],objFijo,unidad,obj:objRow?objRow.obj:null,real,isObjRow:false});
       }
     }
     IND=IND.filter(x=>!x.isObjRow);
@@ -202,7 +200,8 @@ function getFF(ind,wi){
 function fmt(v,ind){
   if(v==null) return '<span class="na-val">N/A</span>';
   const n=Number.isInteger(v)?v:parseFloat(v.toFixed(2));
-  return PCTS.includes(ind.id)?n+'%':String(n);
+  const u=ind.unidad?` <span style="font-size:13px;color:#8b949e">${ind.unidad}</span>`:'';
+  return n+u;
 }
 
 function spk(ind,wi){
