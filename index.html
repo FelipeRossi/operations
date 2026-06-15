@@ -388,7 +388,43 @@ function render(){
   document.getElementById('body').innerHTML=html;
 }
 
-cargarDatos();
+// Datos hardcodeados para preview
+WK=['W20-26','W21-26','W22-26','W23-26','W24-26','W25-26'];
+IND=[
+  {id:'ton',   label:'Ton Cu fabricadas',               area:'PROD',logica:'mayor',objFijo:null,unidad:'Ton',obj:[81,59,81,61,106,47],   real:[86,57,88,65,102,null]},
+  {id:'acli',  label:'N° Atrasos cliente',              area:'PROD',logica:'menor',objFijo:null,unidad:'N°', obj:[0,0,0,3,2,0],           real:[0,1,0,3,2,null]},
+  {id:'astk',  label:'N° Atrasos stock',                area:'PROD',logica:'menor',objFijo:null,unidad:'N°', obj:[7,13,19,10,15,13],      real:[9,16,4,12,15,null]},
+  {id:'nc',    label:'No conformidad',                  area:'QA',  logica:'menor',objFijo:0,   unidad:'N°', obj:null,real:[0,0,1,0,0,null]},
+  {id:'scm',   label:'Scrap Met',                       area:'QA',  logica:'menor',objFijo:2,   unidad:'%',  obj:null,real:[null,null,2.3,null,null,null]},
+  {id:'sce',   label:'Scrap Ext',                       area:'QA',  logica:'menor',objFijo:5,   unidad:'%',  obj:null,real:[null,null,4.1,null,null,null]},
+  {id:'dis',   label:'Disponibilidad',                  area:'MAINT',logica:'mayor',objFijo:90, unidad:'%',  obj:null,real:[90,90,93.8,84.5,91,null]},
+  {id:'mtt',   label:'MTTR [min]',                      area:'MAINT',logica:'menor',objFijo:60, unidad:'min',obj:null,real:[38,18,57,42,58,null]},
+  {id:'mtb',   label:'MTBF [hr]',                       area:'MAINT',logica:'mayor',objFijo:70, unidad:'hr', obj:null,real:[93,95,79,89,72,null]},
+  {id:'pre',   label:'Preventivas',                     area:'MAINT',logica:'mayor',objFijo:null,unidad:'N°',obj:[3,3,2,0,3,0],           real:[3,3,2,0,3,null]},
+  {id:'ecr',   label:'Efic. canasta menos reservas',    area:'SC',  logica:'mayor',objFijo:80,  unidad:'%', obj:null,real:[98.78,93.99,93.6,100,97.94,null]},
+  {id:'ecrclp',label:'Efic. canasta menos reservas CLP',area:'SC',  logica:'mayor',objFijo:80,  unidad:'%', obj:null,real:[97.4,92.18,96.66,100,99.56,null]},
+  {id:'ern',   label:'Efic. canasta Rhona',             area:'SC',  logica:'mayor',objFijo:80,  unidad:'%', obj:null,real:[null,93.8,92.14,null,null,null]},
+  {id:'ernclp',label:'Efic. canasta Rhona CLP',         area:'SC',  logica:'mayor',objFijo:80,  unidad:'%', obj:null,real:[null,92.18,90.02,null,null,null]},
+  {id:'qmp',   label:'Quiebre de MP',                   area:'SC',  logica:'menor',objFijo:0,   unidad:'%', obj:null,real:[13.33,17.78,4.44,4.76,4.76,null]},
+];
+PLANES=[
+  {desc:'Verificar condiciones contractuales con LEIBINGER (INTPRO) para comprobar compatibilidad con realidad operacional.',resp:'WOP-EVL',inicio:'04-05-2026',revision:'03-08-2026'},
+];
+STOCK=[
+  {cod:'MAKE000',desc:'Make Up',                  stock:12,  ds:8.77,   ss:14.43,  q:1,com:'Se compraron 12 unidades, ya en bodega'},
+  {cod:'TAM0000',desc:'Tinta Amarilla',           stock:4,   ds:2.97,   ss:4.89,   q:1,com:'Se compraron 6 unidades, ya en bodega'},
+  {cod:'XG00203',desc:'XLPE Saco AEI Base A-3001',stock:157, ds:1234.6, ss:2030.73,q:1,com:'Compras detenidas, se eliminará SKU'},
+  {cod:'XP00104',desc:'Cordón 45 KD 3,6 mm',     stock:19.1,ds:366.68, ss:603.13, q:1,com:'Llegada pedido 12/06; sustituible por 65KD 5.5mm'},
+  {cod:'XP00106',desc:'Cordón Tipo 1000',         stock:72,  ds:116.47, ss:191.58, q:1,com:'Llegaron 240 kg, BMP = 312 kg'},
+  {cod:'YB00090',desc:'Cinta Polyester 0,023×38', stock:0,   ds:56.64,  ss:93.16,  q:1,com:'Por definir compra'},
+  {cod:'ZB00403',desc:'MB Eva Verde',             stock:50,  ds:56.21,  ss:92.46,  q:1,com:'Llegaron 192 kg, stock actual 242 kg'},
+  {cod:'ZE00300',desc:'Catalizador AEI047 FR UV 2',stock:0,  ds:421.61, ss:693.49, q:1,com:'Compras detenidas, se eliminará SKU'},
+];
+
+const sel=document.getElementById('wsel');
+WK.forEach((w,i)=>{const o=document.createElement('option');o.value=i;o.textContent=w;sel.appendChild(o);});
+sel.value=WK.length-1;
+render();
 </script>
 </body>
 </html>
