@@ -80,17 +80,17 @@ tr:hover td{background:#1c2128}
   </div>
 </div>
 
-<div class="sum-grid" id="sum-grid"><div class="sk" style="grid-column:span 4"><div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div></div></div>
+<div class="sum-grid" id="sum-grid">
+  <div class="sk" style="grid-column:span 4">
+    <div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div>
+  </div>
+</div>
 <div class="body" id="body"></div>
 
 <script>
 const SHEET_ID='1oF4bwwvck9AIV8-zaPz1gaiKo6ZnHkIfeM1QO-ckJZI';
 const BASE=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=`;
-const URL_DATA  =BASE+'DATA';
-const URL_PLANES=BASE+'PLANES';
-const URL_STOCK =BASE+'STOCK';
 
-const PCTS=['dis','scm','sce','ecr','ecrclp','ern','ernclp','qmp'];
 const ACFG={
   PROD: {label:'Producción',    icon:'ti-bolt',         color:'#58a6ff',cls:'area-prod'},
   QA:   {label:'Calidad',       icon:'ti-shield-check', color:'#3fb950',cls:'area-qa'},
@@ -100,110 +100,108 @@ const ACFG={
 
 let WK=[], IND=[], PLANES=[], STOCK=[];
 
-async function fetchCSV(url){
-  try{
-    const r=await fetch(url);
-    const t=await r.text();
-    return t.trim().split('\n').map(row=>row.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
-  }catch(e){
-    throw new Error('No se pudo conectar al Sheet. Verifica que esté compartido.');
+function parseCSVLine(line){
+  const result=[];
+  let cur='', inQ=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(c==='"'){inQ=!inQ;}
+    else if(c===','&&!inQ){result.push(cur.trim());cur='';}
+    else cur+=c;
   }
+  result.push(cur.trim());
+  return result;
+}
+
+async function fetchCSV(url){
+  const r=await fetch(url);
+  const t=await r.text();
+  return t.trim().split('\n').map(l=>parseCSVLine(l));
 }
 
 function parseNum(v){
-  if(!v||v==='-'||v==='')return null;
+  if(!v||v==='-'||v===''||v.toLowerCase()==='n/a') return null;
   return parseFloat(v.replace('%','').replace(',','.'));
 }
 
 async function cargarDatos(){
   document.getElementById('sum-grid').innerHTML='<div class="sk" style="grid-column:span 4"><div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div></div>';
   document.getElementById('body').innerHTML='';
-
   try{
-    const [dataRows, planesRows, stockRows] = await Promise.all([
-      fetchCSV(URL_DATA), fetchCSV(URL_PLANES), fetchCSV(URL_STOCK)
+    const [dataRows,planesRows,stockRows]=await Promise.all([
+      fetchCSV(BASE+'DATA'),
+      fetchCSV(BASE+'PLANES'),
+      fetchCSV(BASE+'STOCK'),
     ]);
 
-    // Parsear DATA
     const headers=dataRows[0];
     WK=headers.slice(6);
     IND=[];
     for(let i=1;i<dataRows.length;i++){
       const row=dataRows[i];
-      if(!row[0])continue;
+      if(!row[0]) continue;
       const id=row[0].toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,10);
       const objFijo=parseNum(row[4]);
       const unidad=row[5]||'';
-      const real=row.slice(6).map(v=>parseNum(v));
+      const vals=row.slice(6).map(v=>parseNum(v));
       const isOBJ=row[0].includes('OBJ');
       if(isOBJ){
-        IND.push({id:id+'obj',label:row[0],area:row[1],logica:row[3],objFijo:null,unidad,obj:real,real:[],isObjRow:true});
+        IND.push({id:id+'obj',label:row[0],area:row[1],logica:row[3],objFijo:null,unidad,obj:vals,real:[],isObjRow:true});
       } else {
-        const labelBase=row[0].replace(' Real','').replace(' OBJ','');
-        const objRow=IND.find(x=>x.isObjRow && x.label.replace(' OBJ','')===labelBase);
-        IND.push({id,label:row[0].replace(' Real',''),area:row[1],logica:row[3],objFijo,unidad,obj:objRow?objRow.obj:null,real,isObjRow:false});
+        const labelBase=row[0].replace(' Real','');
+        const objRow=IND.find(x=>x.isObjRow&&x.label.replace(' OBJ','')===labelBase);
+        IND.push({id,label:labelBase,area:row[1],logica:row[3],objFijo,unidad,obj:objRow?objRow.obj:null,real:vals,isObjRow:false});
       }
     }
     IND=IND.filter(x=>!x.isObjRow);
 
-    // Parsear PLANES
     PLANES=[];
     for(let i=1;i<planesRows.length;i++){
       const r=planesRows[i];
-      if(!r[0])continue;
+      if(!r[0]) continue;
       PLANES.push({desc:r[0],resp:r[1]||'—',inicio:r[2]||'—',revision:r[3]||'—'});
     }
 
-    // Parsear STOCK
     STOCK=[];
     for(let i=1;i<stockRows.length;i++){
       const r=stockRows[i];
-      if(!r[0])continue;
+      if(!r[0]) continue;
       STOCK.push({cod:r[0],desc:r[1],stock:parseNum(r[2]),ds:parseNum(r[3]),ss:parseNum(r[4]),q:parseNum(r[5]),com:r[6]||''});
     }
 
-    // Poblar selector de semanas
     const sel=document.getElementById('wsel');
     sel.innerHTML='';
-    WK.forEach((w,i)=>{
-      const o=document.createElement('option');
-      o.value=i; o.textContent=w;
-      sel.appendChild(o);
-    });
+    WK.forEach((w,i)=>{const o=document.createElement('option');o.value=i;o.textContent=w;sel.appendChild(o);});
     sel.value=WK.length-1;
     render();
 
   }catch(e){
-    document.getElementById('sum-grid').innerHTML=`<div class="sk" style="grid-column:span 4"><div class="loading" style="color:#f85149"><i class="ti ti-alert-triangle"></i> Error al cargar datos: ${e.message}</div></div>`;
+    document.getElementById('sum-grid').innerHTML=`<div class="sk" style="grid-column:span 4"><div class="loading" style="color:#f85149"><i class="ti ti-alert-triangle"></i> Error al cargar: ${e.message}</div></div>`;
   }
 }
 
 function getObj(ind,wi){
   if(ind.objFijo!==null&&ind.objFijo!==undefined) return ind.objFijo;
-  return ind.obj ? ind.obj[wi] : null;
+  return ind.obj?ind.obj[wi]:null;
 }
-
 function getSt(ind,wi){
-  const r=ind.real[wi], o=getObj(ind,wi);
+  const r=ind.real[wi],o=getObj(ind,wi);
   if(r==null||o==null) return 'na';
   return ind.logica==='mayor'?(r>=o?'g':'r'):(r<=o?'g':'r');
 }
-
 function getFF(ind,wi){
-  const r=ind.real[wi], o=getObj(ind,wi);
+  const r=ind.real[wi],o=getObj(ind,wi);
   if(r==null||o==null) return null;
   if(ind.logica==='mayor') return o!==0?Math.round(r/o*100):100;
   if(r===0) return 100;
   return Math.round(o/r*100);
 }
-
 function fmt(v,ind){
   if(v==null) return '<span class="na-val">N/A</span>';
   const n=Number.isInteger(v)?v:parseFloat(v.toFixed(2));
   const u=ind.unidad?` <span style="font-size:13px;color:#8b949e">${ind.unidad}</span>`:'';
   return n+u;
 }
-
 function spk(ind,wi){
   const vals=ind.real.filter(x=>x!=null);
   if(!vals.length) return '';
@@ -215,16 +213,13 @@ function spk(ind,wi){
     const h=v==null?4:Math.max(6,Math.round(Math.abs(v)/Math.max(mx,1)*28));
     b+=`<div class="sb" style="height:${h}px;background:${col}"></div>`;
   }
-  return `<span class="spark">${b}</span>`;
+  return`<span class="spark">${b}</span>`;
 }
-
 function pillH(st,ff){
   if(st==='na') return '<span class="pill pn">N/A</span>';
-  return `<span class="pill p${st}">${ff}%</span>`;
+  return`<span class="pill p${st}">${ff}%</span>`;
 }
-
 function fmtFecha(s){if(!s)return'—';const[y,m,d]=s.split('-');return`${d}-${m}-${y}`;}
-
 function agregarPlan(){
   const desc=document.getElementById('pa-desc').value.trim();
   const resp=document.getElementById('pa-resp').value.trim();
@@ -236,7 +231,6 @@ function agregarPlan(){
   ['pa-desc','pa-resp','pa-ini','pa-rev'].forEach(id=>document.getElementById(id).value='');
   render();
 }
-
 function eliminarPlan(idx){PLANES.splice(idx,1);render();}
 
 function render(){
@@ -274,7 +268,6 @@ function render(){
     </div>`;
 
   let html='';
-
   for(const area of ['PROD','QA','MAINT','SC']){
     const cfg=ACFG[area];
     const rows=IND.filter(r=>r.area===area);
@@ -309,7 +302,6 @@ function render(){
     html+=`</tbody></table></div>`;
   }
 
-  // Planes de acción
   html+=`<div class="area-block area-pa">
     <div class="area-head">
       <i class="ti ti-clipboard-list area-icon" style="color:#58a6ff"></i>
@@ -356,7 +348,6 @@ function render(){
     </div>
   </div>`;
 
-  // Stock
   html+=`<div class="area-block area-stk">
     <div class="area-head">
       <i class="ti ti-box area-icon" style="color:#d29922"></i>
@@ -388,43 +379,7 @@ function render(){
   document.getElementById('body').innerHTML=html;
 }
 
-// Datos hardcodeados para preview
-WK=['W20-26','W21-26','W22-26','W23-26','W24-26','W25-26'];
-IND=[
-  {id:'ton',   label:'Ton Cu fabricadas',               area:'PROD',logica:'mayor',objFijo:null,unidad:'Ton',obj:[81,59,81,61,106,47],   real:[86,57,88,65,102,null]},
-  {id:'acli',  label:'N° Atrasos cliente',              area:'PROD',logica:'menor',objFijo:null,unidad:'N°', obj:[0,0,0,3,2,0],           real:[0,1,0,3,2,null]},
-  {id:'astk',  label:'N° Atrasos stock',                area:'PROD',logica:'menor',objFijo:null,unidad:'N°', obj:[7,13,19,10,15,13],      real:[9,16,4,12,15,null]},
-  {id:'nc',    label:'No conformidad',                  area:'QA',  logica:'menor',objFijo:0,   unidad:'N°', obj:null,real:[0,0,1,0,0,null]},
-  {id:'scm',   label:'Scrap Met',                       area:'QA',  logica:'menor',objFijo:2,   unidad:'%',  obj:null,real:[null,null,2.3,null,null,null]},
-  {id:'sce',   label:'Scrap Ext',                       area:'QA',  logica:'menor',objFijo:5,   unidad:'%',  obj:null,real:[null,null,4.1,null,null,null]},
-  {id:'dis',   label:'Disponibilidad',                  area:'MAINT',logica:'mayor',objFijo:90, unidad:'%',  obj:null,real:[90,90,93.8,84.5,91,null]},
-  {id:'mtt',   label:'MTTR [min]',                      area:'MAINT',logica:'menor',objFijo:60, unidad:'min',obj:null,real:[38,18,57,42,58,null]},
-  {id:'mtb',   label:'MTBF [hr]',                       area:'MAINT',logica:'mayor',objFijo:70, unidad:'hr', obj:null,real:[93,95,79,89,72,null]},
-  {id:'pre',   label:'Preventivas',                     area:'MAINT',logica:'mayor',objFijo:null,unidad:'N°',obj:[3,3,2,0,3,0],           real:[3,3,2,0,3,null]},
-  {id:'ecr',   label:'Efic. canasta menos reservas',    area:'SC',  logica:'mayor',objFijo:80,  unidad:'%', obj:null,real:[98.78,93.99,93.6,100,97.94,null]},
-  {id:'ecrclp',label:'Efic. canasta menos reservas CLP',area:'SC',  logica:'mayor',objFijo:80,  unidad:'%', obj:null,real:[97.4,92.18,96.66,100,99.56,null]},
-  {id:'ern',   label:'Efic. canasta Rhona',             area:'SC',  logica:'mayor',objFijo:80,  unidad:'%', obj:null,real:[null,93.8,92.14,null,null,null]},
-  {id:'ernclp',label:'Efic. canasta Rhona CLP',         area:'SC',  logica:'mayor',objFijo:80,  unidad:'%', obj:null,real:[null,92.18,90.02,null,null,null]},
-  {id:'qmp',   label:'Quiebre de MP',                   area:'SC',  logica:'menor',objFijo:0,   unidad:'%', obj:null,real:[13.33,17.78,4.44,4.76,4.76,null]},
-];
-PLANES=[
-  {desc:'Verificar condiciones contractuales con LEIBINGER (INTPRO) para comprobar compatibilidad con realidad operacional.',resp:'WOP-EVL',inicio:'04-05-2026',revision:'03-08-2026'},
-];
-STOCK=[
-  {cod:'MAKE000',desc:'Make Up',                  stock:12,  ds:8.77,   ss:14.43,  q:1,com:'Se compraron 12 unidades, ya en bodega'},
-  {cod:'TAM0000',desc:'Tinta Amarilla',           stock:4,   ds:2.97,   ss:4.89,   q:1,com:'Se compraron 6 unidades, ya en bodega'},
-  {cod:'XG00203',desc:'XLPE Saco AEI Base A-3001',stock:157, ds:1234.6, ss:2030.73,q:1,com:'Compras detenidas, se eliminará SKU'},
-  {cod:'XP00104',desc:'Cordón 45 KD 3,6 mm',     stock:19.1,ds:366.68, ss:603.13, q:1,com:'Llegada pedido 12/06; sustituible por 65KD 5.5mm'},
-  {cod:'XP00106',desc:'Cordón Tipo 1000',         stock:72,  ds:116.47, ss:191.58, q:1,com:'Llegaron 240 kg, BMP = 312 kg'},
-  {cod:'YB00090',desc:'Cinta Polyester 0,023×38', stock:0,   ds:56.64,  ss:93.16,  q:1,com:'Por definir compra'},
-  {cod:'ZB00403',desc:'MB Eva Verde',             stock:50,  ds:56.21,  ss:92.46,  q:1,com:'Llegaron 192 kg, stock actual 242 kg'},
-  {cod:'ZE00300',desc:'Catalizador AEI047 FR UV 2',stock:0,  ds:421.61, ss:693.49, q:1,com:'Compras detenidas, se eliminará SKU'},
-];
-
-const sel=document.getElementById('wsel');
-WK.forEach((w,i)=>{const o=document.createElement('option');o.value=i;o.textContent=w;sel.appendChild(o);});
-sel.value=WK.length-1;
-render();
+cargarDatos();
 </script>
 </body>
 </html>
