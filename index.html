@@ -84,10 +84,11 @@ tr:hover td{background:#1c2128}
 <div class="body" id="body"></div>
 
 <script>
-const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?single=true&output=csv&gid=';
-const URL_DATA  =BASE+'816074203';
-const URL_PLANES=BASE+'526759942';
-const URL_STOCK =BASE+'1914223095';
+const SHEET_ID='1oF4bwwvck9AIV8-zaPz1gaiKo6ZnHkIfeM1QO-ckJZI';
+const BASE=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=`;
+const URL_DATA  =BASE+'DATA';
+const URL_PLANES=BASE+'PLANES';
+const URL_STOCK =BASE+'STOCK';
 
 const PCTS=['dis','scm','sce','ecr','ecrclp','ern','ernclp','qmp'];
 const ACFG={
@@ -100,20 +101,13 @@ const ACFG={
 let WK=[], IND=[], PLANES=[], STOCK=[];
 
 async function fetchCSV(url){
-  const proxies=[
-    'https://corsproxy.io/?'+encodeURIComponent(url),
-    'https://api.allorigins.win/raw?url='+encodeURIComponent(url),
-    url
-  ];
-  for(const proxy of proxies){
-    try{
-      const r=await fetch(proxy);
-      if(!r.ok) continue;
-      const t=await r.text();
-      if(t.length>10) return t.trim().split('\n').map(row=>row.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
-    }catch(e){continue;}
+  try{
+    const r=await fetch(url);
+    const t=await r.text();
+    return t.trim().split('\n').map(row=>row.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
+  }catch(e){
+    throw new Error('No se pudo conectar al Sheet. Verifica que esté compartido.');
   }
-  throw new Error('No se pudo conectar al Sheet. Verifica que esté publicado.');
 }
 
 function parseNum(v){
