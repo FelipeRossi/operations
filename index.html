@@ -11,17 +11,18 @@ body{font-family:'Calibri',Candara,Segoe,sans-serif;background:#0d1117;color:#e6
 .topbar{background:#161b22;border-bottom:1px solid #21262d;padding:18px 28px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:14px}
 .brand-icon{color:#58a6ff;font-size:32px}
-.brand-name{font-size:28px;font-weight:700;color:#58a6ff}
-.brand-sub{font-size:18px;color:#8b949e;margin-left:12px;font-weight:500}
+.brand-name{font-size:32px;font-weight:700;color:#58a6ff}
+.brand-sub{font-size:20px;color:#8b949e;margin-left:12px;font-weight:500}
 .week-ctl{display:flex;align-items:center;gap:12px}
-.week-ctl span{font-size:18px;color:#8b949e;font-weight:600}
-.week-ctl select{font-size:18px;padding:8px 14px;background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:8px;outline:none;font-weight:600;font-family:'Calibri',Candara,Segoe,sans-serif}
+.week-ctl span{font-size:20px;color:#8b949e;font-weight:600}
+.week-ctl select{font-size:20px;padding:10px 16px;background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:8px;outline:none;font-weight:600;font-family:'Calibri',Candara,Segoe,sans-serif}
+.refresh-btn{font-size:15px;padding:8px 16px;background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.3);border-radius:6px;cursor:pointer;font-family:'Calibri',sans-serif;font-weight:600}
 .sum-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#21262d;border-bottom:1px solid #21262d}
-.sk{background:#161b22;padding:26px 28px;border-left:4px solid transparent}
-.sk-lbl{font-size:16px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8b949e;margin-bottom:10px}
-.sk-num{font-size:52px;font-weight:700;line-height:1;margin-bottom:6px}
-.sk-sub{font-size:16px;font-weight:500;color:#8b949e}
-.sk-prog{height:4px;background:#21262d;border-radius:2px;margin-top:16px}
+.sk{background:#161b22;padding:30px 32px;border-left:4px solid transparent}
+.sk-lbl{font-size:17px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8b949e;margin-bottom:12px}
+.sk-num{font-size:64px;font-weight:700;line-height:1;margin-bottom:8px}
+.sk-sub{font-size:17px;font-weight:500;color:#8b949e}
+.sk-prog{height:4px;background:#21262d;border-radius:2px;margin-top:18px}
 .sk-fill{height:4px;border-radius:2px}
 .sk-green{border-left-color:#3fb950}.sk-green .sk-num{color:#3fb950}.sk-green .sk-fill{background:#3fb950}
 .sk-red{border-left-color:#f85149}.sk-red .sk-num{color:#f85149}.sk-red .sk-fill{background:#f85149}
@@ -29,39 +30,40 @@ body{font-family:'Calibri',Candara,Segoe,sans-serif;background:#0d1117;color:#e6
 .sk-amber{border-left-color:#d29922}.sk-amber .sk-num{color:#d29922}.sk-amber .sk-fill{background:#d29922}
 .body{padding:16px 24px 40px;display:flex;flex-direction:column;gap:14px}
 .area-block{background:#161b22;border:1px solid #21262d;border-radius:10px;overflow:hidden}
-.area-head{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid #21262d}
-.area-icon{font-size:26px}
-.area-title{font-size:24px;font-weight:700;color:#e6edf3}
+.area-head{display:flex;align-items:center;gap:14px;padding:18px 24px;border-bottom:1px solid #21262d}
+.area-icon{font-size:28px}
+.area-title{font-size:26px;font-weight:700;color:#e6edf3}
 .area-counts{margin-left:auto;display:flex;gap:8px;align-items:center}
-.cnt{font-size:16px;padding:5px 14px;border-radius:20px;font-weight:700}
+.cnt{font-size:18px;padding:6px 16px;border-radius:20px;font-weight:700}
 .cnt-g{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.3)}
 .cnt-r{background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)}
 .loading{text-align:center;padding:60px;font-size:20px;color:#8b949e}
 table{width:100%;border-collapse:collapse;table-layout:fixed}
-th{font-size:16px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8b949e;padding:14px 22px;text-align:left;background:#0d1117;border-bottom:1px solid #21262d;font-family:'Calibri',Candara,Segoe,sans-serif}
+th{font-size:17px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8b949e;padding:16px 24px;text-align:left;background:#0d1117;border-bottom:1px solid #21262d;font-family:'Calibri',Candara,Segoe,sans-serif}
 th.r{text-align:right}th.c{text-align:center}
-td{font-size:18px;padding:16px 22px;border-bottom:1px solid #1c2128;vertical-align:middle;font-family:'Calibri',Candara,Segoe,sans-serif}
+td{font-size:22px;padding:20px 24px;border-bottom:1px solid #1c2128;vertical-align:middle;font-family:'Calibri',Candara,Segoe,sans-serif}
 td.r{text-align:right}td.c{text-align:center}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#1c2128}
-.ind-name{color:#cdd9e5;font-size:18px;font-weight:600}
-.val-obj{color:#8b949e;font-size:17px;font-weight:600}
-.val-real{color:#e6edf3;font-size:20px;font-weight:700}
-.pill{display:inline-flex;align-items:center;justify-content:center;padding:6px 18px;border-radius:24px;font-size:17px;font-weight:700;min-width:80px;font-family:'Calibri',Candara,Segoe,sans-serif}
+.ind-name{color:#cdd9e5;font-size:22px;font-weight:600}
+.ind-unit{font-size:16px;color:#6b8aaa;font-weight:500;margin-left:6px}
+.val-obj{color:#8b949e;font-size:56px;font-weight:600}
+.val-real{color:#e6edf3;font-size:56px;font-weight:700}
+.pill{display:inline-flex;align-items:center;justify-content:center;padding:8px 20px;border-radius:24px;font-size:20px;font-weight:700;min-width:90px;font-family:'Calibri',Candara,Segoe,sans-serif}
 .pg{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.3)}
 .pr{background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)}
 .pn{background:rgba(139,148,158,.1);color:#8b949e;border:1px solid rgba(139,148,158,.2)}
-.spark{display:inline-flex;align-items:flex-end;gap:4px;height:30px}
-.sb{width:12px;border-radius:3px 3px 0 0}
-.na-val{color:#4a5568;font-size:16px}
+.spark{display:inline-flex;align-items:flex-end;gap:4px;height:36px}
+.sb{width:14px;border-radius:3px 3px 0 0}
+.na-val{color:#4a5568;font-size:18px}
 .area-prod .area-head{border-left:4px solid #58a6ff}
 .area-qa   .area-head{border-left:4px solid #3fb950}
 .area-maint .area-head{border-left:4px solid #d29922}
 .area-sc   .area-head{border-left:4px solid #bc8cff}
 .area-pa   .area-head{border-left:4px solid #58a6ff}
 .area-stk  .area-head{border-left:4px solid #d29922}
-.cod{font-family:monospace;font-size:15px;color:#8b949e}
-.refresh-btn{font-size:14px;padding:6px 14px;background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.3);border-radius:6px;cursor:pointer;font-family:'Calibri',sans-serif;font-weight:600}
+.area-chart .area-head{border-left:4px solid #bc8cff}
+.cod{font-family:monospace;font-size:16px;color:#8b949e}
 </style>
 </head>
 <body>
@@ -74,42 +76,58 @@ tr:hover td{background:#1c2128}
   </div>
   <div class="week-ctl">
     <button class="refresh-btn" onclick="cargarDatos()"><i class="ti ti-refresh"></i> Actualizar</button>
-    <i class="ti ti-calendar" style="font-size:22px;color:#8b949e"></i>
+    <i class="ti ti-calendar" style="font-size:24px;color:#8b949e"></i>
     <span>Semana</span>
     <select id="wsel" onchange="render()"></select>
   </div>
 </div>
 
 <div class="sum-grid" id="sum-grid">
-  <div class="sk" style="grid-column:span 4">
-    <div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div>
-  </div>
+  <div class="sk" style="grid-column:span 4"><div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div></div>
 </div>
 <div class="body" id="body"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-const URL_DATA  ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=816074203&single=true&output=tsv';
-const URL_PLANES='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=526759942&single=true&output=tsv';
-const URL_STOCK ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=1914223095&single=true&output=tsv';
+const URL_DATA  ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=816074203&single=true&output=csv';
+const URL_PLANES='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=526759942&single=true&output=csv';
+const URL_STOCK ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=1914223095&single=true&output=csv';
 
 const ACFG={
-  PROD: {label:'Producción',    icon:'ti-bolt',         color:'#58a6ff',cls:'area-prod'},
-  QA:   {label:'Calidad',       icon:'ti-shield-check', color:'#3fb950',cls:'area-qa'},
-  MAINT:{label:'Mantenimiento', icon:'ti-tool',         color:'#d29922',cls:'area-maint'},
-  SC:   {label:'Supply chain',  icon:'ti-package',      color:'#bc8cff',cls:'area-sc'},
+  PROD:{label:'Producción',    icon:'ti-bolt',         color:'#58a6ff',cls:'area-prod'},
+  QA:  {label:'Calidad',       icon:'ti-shield-check', color:'#3fb950',cls:'area-qa'},
+  MAINT:{label:'Mantenimiento',icon:'ti-tool',         color:'#d29922',cls:'area-maint'},
+  SC:  {label:'Supply chain',  icon:'ti-package',      color:'#bc8cff',cls:'area-sc'},
 };
 
-let WK=[], IND=[], PLANES=[], STOCK=[];
+let WK=[],IND=[],PLANES=[],STOCK=[],charts={};
+
+function parseCSV(text){
+  const rows=[];
+  for(const line of text.trim().split('\n')){
+    const row=[];
+    let cur='',inQ=false;
+    for(let i=0;i<line.length;i++){
+      const c=line[i];
+      if(c==='"'){inQ=!inQ;}
+      else if(c===','&&!inQ){row.push(cur.trim());cur='';}
+      else cur+=c;
+    }
+    row.push(cur.trim());
+    rows.push(row);
+  }
+  return rows;
+}
 
 function parseNum(v){
-  if(!v||v==='-'||v===''||v.toLowerCase()==='n/a') return null;
-  return parseFloat(v.replace('%','').replace(',','.'));
+  if(!v||v==='-'||v==='') return null;
+  return parseFloat(v.replace(',','.').replace('%',''));
 }
 
 async function fetchCSV(url){
   const r=await fetch(url);
   const t=await r.text();
-  return t.trim().split('\n').map(l=>l.split('\t').map(c=>c.trim()));
+  return parseCSV(t);
 }
 
 async function cargarDatos(){
@@ -117,31 +135,29 @@ async function cargarDatos(){
   document.getElementById('body').innerHTML='';
   try{
     const [dataRows,planesRows,stockRows]=await Promise.all([
-      fetchCSV(URL_DATA),
-      fetchCSV(URL_PLANES),
-      fetchCSV(URL_STOCK),
+      fetchCSV(URL_DATA),fetchCSV(URL_PLANES),fetchCSV(URL_STOCK)
     ]);
 
-    const headers=dataRows[0];
-    WK=headers.slice(6);
+    WK=dataRows[0].slice(6);
     IND=[];
+    const objRows=[];
     for(let i=1;i<dataRows.length;i++){
       const row=dataRows[i];
       if(!row[0]) continue;
-      const id=row[0].toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,10);
-      const objFijo=parseNum(row[4]);
-      const unidad=row[5]||'';
       const vals=row.slice(6).map(v=>parseNum(v));
-      const isOBJ=row[0].includes('OBJ');
-      if(isOBJ){
-        IND.push({id:id+'obj',label:row[0],area:row[1],logica:row[3],objFijo:null,unidad,obj:vals,real:[],isObjRow:true});
+      if(row[0].includes('OBJ')){
+        objRows.push({label:row[0],vals});
       } else {
         const labelBase=row[0].replace(' Real','');
-        const objRow=IND.find(x=>x.isObjRow&&x.label.replace(' OBJ','')===labelBase);
-        IND.push({id,label:labelBase,area:row[1],logica:row[3],objFijo,unidad,obj:objRow?objRow.obj:null,real:vals,isObjRow:false});
+        const objRow=objRows.find(x=>x.label.replace(' OBJ','')===labelBase);
+        IND.push({
+          id:row[0].toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,10),
+          label:labelBase,area:row[1],logica:row[3],
+          objFijo:parseNum(row[4]),unidad:row[5]||'',
+          obj:objRow?objRow.vals:null,real:vals,
+        });
       }
     }
-    IND=IND.filter(x=>!x.isObjRow);
 
     PLANES=[];
     for(let i=1;i<planesRows.length;i++){
@@ -164,7 +180,7 @@ async function cargarDatos(){
     render();
 
   }catch(e){
-    document.getElementById('sum-grid').innerHTML=`<div class="sk" style="grid-column:span 4"><div class="loading" style="color:#f85149"><i class="ti ti-alert-triangle"></i> Error al cargar: ${e.message}</div></div>`;
+    document.getElementById('sum-grid').innerHTML=`<div class="sk" style="grid-column:span 4"><div class="loading" style="color:#f85149"><i class="ti ti-alert-triangle"></i> Error: ${e.message}</div></div>`;
   }
 }
 
@@ -184,11 +200,9 @@ function getFF(ind,wi){
   if(r===0) return 100;
   return Math.round(o/r*100);
 }
-function fmt(v,ind){
+function fmt(v){
   if(v==null) return '<span class="na-val">N/A</span>';
-  const n=Number.isInteger(v)?v:parseFloat(v.toFixed(2));
-  const u=ind.unidad?` <span style="font-size:13px;color:#8b949e">${ind.unidad}</span>`:'';
-  return n+u;
+  return String(Number.isInteger(v)?v:parseFloat(v.toFixed(2)));
 }
 function spk(ind,wi){
   const vals=ind.real.filter(x=>x!=null);
@@ -198,7 +212,7 @@ function spk(ind,wi){
   for(let i=Math.max(0,wi-4);i<=wi;i++){
     const v=ind.real[i],st=getSt(ind,i);
     const col=st==='g'?'#3fb950':st==='r'?'#f85149':'#30363d';
-    const h=v==null?4:Math.max(6,Math.round(Math.abs(v)/Math.max(mx,1)*28));
+    const h=v==null?4:Math.max(6,Math.round(Math.abs(v)/Math.max(mx,1)*34));
     b+=`<div class="sb" style="height:${h}px;background:${col}"></div>`;
   }
   return`<span class="spark">${b}</span>`;
@@ -221,6 +235,47 @@ function agregarPlan(){
 }
 function eliminarPlan(idx){PLANES.splice(idx,1);render();}
 
+function buildCharts(){
+  Object.values(charts).forEach(c=>c.destroy());
+  charts={};
+  const COLORS=['#58a6ff','#3fb950','#f85149','#d29922','#bc8cff','#5DCAA5','#F0997B','#FAC775','#85B7EB','#97C459','#ED93B1','#f07070','#70aaf0','#e8a838','#B4B2A9'];
+  const datasets=IND.map((ind,i)=>({
+    label:ind.label,data:ind.real.map(v=>v),
+    borderColor:COLORS[i%COLORS.length],backgroundColor:'transparent',
+    borderWidth:2.5,pointRadius:5,pointHoverRadius:7,tension:0.3,spanGaps:true,
+  }));
+  const leg=document.getElementById('legend-trend');
+  if(leg) leg.innerHTML=IND.map((ind,i)=>`
+    <span style="display:flex;align-items:center;gap:6px;font-size:14px;color:#8b949e;cursor:pointer" onclick="toggleLine(${i})" id="leg-${i}">
+      <span style="width:24px;height:3px;background:${COLORS[i%COLORS.length]};display:inline-block;border-radius:2px"></span>
+      ${ind.label}</span>`).join('');
+  const ctx=document.getElementById('chart-trend').getContext('2d');
+  charts.trend=new Chart(ctx,{
+    type:'line',data:{labels:WK,datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{legend:{display:false},tooltip:{
+        backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,
+        titleColor:'#e6edf3',bodyColor:'#8b949e',
+        titleFont:{size:14,family:'Calibri'},bodyFont:{size:13,family:'Calibri'},
+        callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y??'N/A'}`}
+      }},
+      scales:{
+        x:{ticks:{color:'#8b949e',font:{size:14,family:'Calibri'}},grid:{color:'#21262d'}},
+        y:{ticks:{color:'#8b949e',font:{size:14,family:'Calibri'}},grid:{color:'#21262d'}}
+      }
+    }
+  });
+}
+function toggleLine(idx){
+  const meta=charts.trend.getDatasetMeta(idx);
+  meta.hidden=!meta.hidden;
+  charts.trend.update();
+  const leg=document.getElementById(`leg-${idx}`);
+  if(leg) leg.style.opacity=meta.hidden?'0.3':'1';
+}
+
 function render(){
   const wi=parseInt(document.getElementById('wsel').value);
   const measured=IND.filter(i=>getSt(i,wi)!=='na');
@@ -231,31 +286,66 @@ function render(){
 
   document.getElementById('sum-grid').innerHTML=`
     <div class="sk sk-green">
-      <div class="sk-lbl"><i class="ti ti-circle-check" style="font-size:18px;margin-right:6px"></i>Cumpliendo</div>
+      <div class="sk-lbl"><i class="ti ti-circle-check" style="font-size:20px;margin-right:6px"></i>Cumpliendo</div>
       <div class="sk-num">${verde}</div>
       <div class="sk-sub">de ${measured.length} indicadores medidos</div>
       <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(verde/Math.max(measured.length,1)*100)}%"></div></div>
     </div>
     <div class="sk sk-red">
-      <div class="sk-lbl"><i class="ti ti-circle-x" style="font-size:18px;margin-right:6px"></i>Con desvío</div>
+      <div class="sk-lbl"><i class="ti ti-circle-x" style="font-size:20px;margin-right:6px"></i>Con desvío</div>
       <div class="sk-num">${rojo}</div>
       <div class="sk-sub">de ${measured.length} indicadores medidos</div>
       <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(rojo/Math.max(measured.length,1)*100)}%"></div></div>
     </div>
     <div class="sk sk-blue">
-      <div class="sk-lbl"><i class="ti ti-percentage" style="font-size:18px;margin-right:6px"></i>Cumplimiento global</div>
+      <div class="sk-lbl"><i class="ti ti-percentage" style="font-size:20px;margin-right:6px"></i>Cumplimiento global</div>
       <div class="sk-num">${pct}%</div>
       <div class="sk-sub">${WK[wi]}</div>
       <div class="sk-prog"><div class="sk-fill" style="width:${pct}%"></div></div>
     </div>
     <div class="sk sk-amber">
-      <div class="sk-lbl"><i class="ti ti-alert-triangle" style="font-size:18px;margin-right:6px"></i>Quiebres MP activos</div>
+      <div class="sk-lbl"><i class="ti ti-alert-triangle" style="font-size:20px;margin-right:6px"></i>Quiebres MP activos</div>
       <div class="sk-num">${qA}</div>
       <div class="sk-sub">ítems bajo stock de seguridad</div>
       <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(qA/Math.max(STOCK.length,1)*100)}%"></div></div>
     </div>`;
 
   let html='';
+
+  html+=`<div class="area-block area-pa">
+    <div class="area-head">
+      <i class="ti ti-clipboard-list area-icon" style="color:#58a6ff"></i>
+      <span class="area-title">Planes de acción</span>
+      <div class="area-counts"><span class="cnt" style="background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.25)">${PLANES.length} activo${PLANES.length!==1?'s':''}</span></div>
+    </div>
+    <table><thead><tr>
+      <th style="width:46%">Descripción</th>
+      <th style="width:18%">Responsable</th>
+      <th style="width:18%">Inicio</th>
+      <th style="width:18%">Revisión</th>
+    </tr></thead><tbody>`;
+  PLANES.forEach(p=>{
+    html+=`<tr>
+      <td style="font-size:20px;color:#cdd9e5;font-weight:500">${p.desc}</td>
+      <td style="font-size:20px;color:#8b949e;font-weight:600">${p.resp}</td>
+      <td style="font-size:20px;color:#8b949e;font-weight:600">${p.inicio}</td>
+      <td style="font-size:20px;color:#8b949e;font-weight:600">${p.revision}</td>
+    </tr>`;
+  });
+  html+=`</tbody></table>
+    <div style="padding:18px 24px;border-top:1px solid #21262d;display:grid;grid-template-columns:3fr 1fr 1fr 1fr auto;gap:10px;align-items:end">
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Descripción</div>
+        <input id="pa-desc" type="text" placeholder="Descripción del plan..." style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Responsable</div>
+        <input id="pa-resp" type="text" placeholder="Ej: WOP-EVL" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Inicio</div>
+        <input id="pa-ini" type="date" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Revisión</div>
+        <input id="pa-rev" type="date" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <button onclick="agregarPlan()" style="font-size:17px;font-weight:700;padding:10px 20px;background:#58a6ff;color:#0d1117;border:none;border-radius:7px;cursor:pointer;font-family:'Calibri',sans-serif;white-space:nowrap"><i class="ti ti-plus" style="margin-right:4px"></i>Agregar</button>
+    </div>
+  </div>`;
+
   for(const area of ['PROD','QA','MAINT','SC']){
     const cfg=ACFG[area];
     const rows=IND.filter(r=>r.area===area);
@@ -271,70 +361,25 @@ function render(){
         </div>
       </div>
       <table><thead><tr>
-        <th style="width:38%">Indicador</th>
-        <th class="r" style="width:13%">Objetivo</th>
-        <th class="r" style="width:13%">Real</th>
+        <th style="width:36%">Indicador</th>
+        <th class="r" style="width:14%">Objetivo</th>
+        <th class="r" style="width:14%">Real</th>
         <th class="c" style="width:18%">Cumplimiento</th>
         <th class="c" style="width:18%">Tendencia</th>
       </tr></thead><tbody>`;
     for(const ind of rows){
       const st=getSt(ind,wi),ff=getFF(ind,wi);
+      const unitLabel=ind.unidad?`<span class="ind-unit">(${ind.unidad})</span>`:'';
       html+=`<tr>
-        <td><span class="ind-name">${ind.label}</span></td>
-        <td class="r"><span class="val-obj">${fmt(getObj(ind,wi),ind)}</span></td>
-        <td class="r"><span class="val-real">${fmt(ind.real[wi],ind)}</span></td>
+        <td><span class="ind-name">${ind.label}</span>${unitLabel}</td>
+        <td class="r"><span class="val-obj">${fmt(getObj(ind,wi))}</span></td>
+        <td class="r"><span class="val-real">${fmt(ind.real[wi])}</span></td>
         <td class="c">${pillH(st,ff)}</td>
         <td class="c">${spk(ind,wi)}</td>
       </tr>`;
     }
     html+=`</tbody></table></div>`;
   }
-
-  html+=`<div class="area-block area-pa">
-    <div class="area-head">
-      <i class="ti ti-clipboard-list area-icon" style="color:#58a6ff"></i>
-      <span class="area-title">Planes de acción</span>
-      <div class="area-counts">
-        <span class="cnt" style="background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.25)">${PLANES.length} activo${PLANES.length!==1?'s':''}</span>
-      </div>
-    </div>
-    <table><thead><tr>
-      <th style="width:46%">Planes de acción</th>
-      <th style="width:14%">Responsable</th>
-      <th style="width:14%">Inicio</th>
-      <th style="width:14%">Revisión</th>
-      <th style="width:12%"></th>
-    </tr></thead><tbody>`;
-  PLANES.forEach((p,idx)=>{
-    html+=`<tr>
-      <td style="font-size:17px;color:#cdd9e5;font-weight:500">${p.desc}</td>
-      <td style="font-size:17px;color:#8b949e;font-weight:600">${p.resp}</td>
-      <td style="font-size:17px;color:#8b949e;font-weight:600">${p.inicio}</td>
-      <td style="font-size:17px;color:#8b949e;font-weight:600">${p.revision}</td>
-      <td class="c"><button onclick="eliminarPlan(${idx})" style="font-size:15px;padding:5px 12px;background:rgba(248,81,73,.1);color:#f85149;border:1px solid rgba(248,81,73,.3);border-radius:6px;cursor:pointer;font-family:'Calibri',sans-serif"><i class="ti ti-trash"></i></button></td>
-    </tr>`;
-  });
-  html+=`</tbody></table>
-    <div style="padding:18px 22px;border-top:1px solid #21262d;display:grid;grid-template-columns:3fr 1fr 1fr 1fr auto;gap:10px;align-items:end">
-      <div>
-        <div style="font-size:13px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em">Descripción</div>
-        <input id="pa-desc" type="text" placeholder="Descripción del plan..." style="width:100%;font-size:16px;padding:8px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif">
-      </div>
-      <div>
-        <div style="font-size:13px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em">Responsable</div>
-        <input id="pa-resp" type="text" placeholder="Ej: WOP-EVL" style="width:100%;font-size:16px;padding:8px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif">
-      </div>
-      <div>
-        <div style="font-size:13px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em">Inicio</div>
-        <input id="pa-ini" type="date" style="width:100%;font-size:16px;padding:8px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif">
-      </div>
-      <div>
-        <div style="font-size:13px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em">Revisión</div>
-        <input id="pa-rev" type="date" style="width:100%;font-size:16px;padding:8px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif">
-      </div>
-      <button onclick="agregarPlan()" style="font-size:16px;font-weight:700;padding:9px 18px;background:#58a6ff;color:#0d1117;border:none;border-radius:7px;cursor:pointer;font-family:'Calibri',sans-serif;white-space:nowrap"><i class="ti ti-plus" style="margin-right:4px"></i>Agregar</button>
-    </div>
-  </div>`;
 
   html+=`<div class="area-block area-stk">
     <div class="area-head">
@@ -355,16 +400,29 @@ function render(){
     const qb=s.q>0?`<span class="pill pr" style="min-width:48px">${s.q}</span>`:`<span class="pill pg" style="min-width:48px">0</span>`;
     html+=`<tr>
       <td><span class="cod">${s.cod}</span></td>
-      <td style="font-size:17px;color:#cdd9e5;font-weight:500">${s.desc}</td>
-      <td class="r" style="font-size:17px;color:#8b949e;font-weight:600">${s.stock!=null?s.stock.toFixed(2):'—'}</td>
-      <td class="r" style="font-size:17px;color:#8b949e;font-weight:600">${s.ds!=null?s.ds.toFixed(2):'—'}</td>
-      <td class="r" style="font-size:17px;color:#8b949e;font-weight:600">${s.ss!=null?s.ss.toFixed(2):'—'}</td>
+      <td style="font-size:20px;color:#cdd9e5;font-weight:500">${s.desc}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.stock!=null?s.stock.toFixed(2):'—'}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.ds!=null?s.ds.toFixed(2):'—'}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.ss!=null?s.ss.toFixed(2):'—'}</td>
       <td class="c">${qb}</td>
-      <td style="font-size:16px;color:#8b949e">${s.com}</td>
+      <td style="font-size:17px;color:#8b949e">${s.com}</td>
     </tr>`;
   }
   html+=`</tbody></table></div>`;
+
+  html+=`<div class="area-block area-chart">
+    <div class="area-head">
+      <i class="ti ti-chart-line area-icon" style="color:#bc8cff"></i>
+      <span class="area-title">Tendencias — valores reales por semana</span>
+    </div>
+    <div style="padding:16px 20px 8px;display:flex;flex-wrap:wrap;gap:12px" id="legend-trend"></div>
+    <div style="padding:8px 20px 20px;position:relative;height:420px">
+      <canvas id="chart-trend" role="img" aria-label="Líneas de tendencia"></canvas>
+    </div>
+  </div>`;
+
   document.getElementById('body').innerHTML=html;
+  setTimeout(buildCharts,50);
 }
 
 cargarDatos();
