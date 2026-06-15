@@ -88,8 +88,9 @@ tr:hover td{background:#1c2128}
 <div class="body" id="body"></div>
 
 <script>
-const SHEET_ID='1oF4bwwvck9AIV8-zaPz1gaiKo6ZnHkIfeM1QO-ckJZI';
-const BASE=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=`;
+const URL_DATA  ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=816074203&single=true&output=tsv';
+const URL_PLANES='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=526759942&single=true&output=tsv';
+const URL_STOCK ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=1914223095&single=true&output=tsv';
 
 const ACFG={
   PROD: {label:'Producción',    icon:'ti-bolt',         color:'#58a6ff',cls:'area-prod'},
@@ -100,28 +101,15 @@ const ACFG={
 
 let WK=[], IND=[], PLANES=[], STOCK=[];
 
-function parseCSVLine(line){
-  const result=[];
-  let cur='', inQ=false;
-  for(let i=0;i<line.length;i++){
-    const c=line[i];
-    if(c==='"'){inQ=!inQ;}
-    else if(c===','&&!inQ){result.push(cur.trim());cur='';}
-    else cur+=c;
-  }
-  result.push(cur.trim());
-  return result;
+function parseNum(v){
+  if(!v||v==='-'||v===''||v.toLowerCase()==='n/a') return null;
+  return parseFloat(v.replace('%','').replace(',','.'));
 }
 
 async function fetchCSV(url){
   const r=await fetch(url);
   const t=await r.text();
-  return t.trim().split('\n').map(l=>parseCSVLine(l));
-}
-
-function parseNum(v){
-  if(!v||v==='-'||v===''||v.toLowerCase()==='n/a') return null;
-  return parseFloat(v.replace('%','').replace(',','.'));
+  return t.trim().split('\n').map(l=>l.split('\t').map(c=>c.trim()));
 }
 
 async function cargarDatos(){
@@ -129,9 +117,9 @@ async function cargarDatos(){
   document.getElementById('body').innerHTML='';
   try{
     const [dataRows,planesRows,stockRows]=await Promise.all([
-      fetchCSV(BASE+'DATA'),
-      fetchCSV(BASE+'PLANES'),
-      fetchCSV(BASE+'STOCK'),
+      fetchCSV(URL_DATA),
+      fetchCSV(URL_PLANES),
+      fetchCSV(URL_STOCK),
     ]);
 
     const headers=dataRows[0];
