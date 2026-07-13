@@ -64,6 +64,10 @@ tr:hover td{background:#1c2128}
 .area-stk  .area-head{border-left:4px solid #d29922}
 .area-chart .area-head{border-left:4px solid #bc8cff}
 .cod{font-family:monospace;font-size:16px;color:#8b949e}
+.ind-charts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1px;background:#21262d}
+.ind-chart-card{background:#161b22;padding:18px 20px 12px}
+.ind-chart-title{font-size:18px;font-weight:700;color:#e6edf3;margin-bottom:10px}
+.ind-chart-title .ind-unit{font-size:14px;color:#6b8aaa;font-weight:500;margin-left:4px}
 </style>
 </head>
 <body>
@@ -170,7 +174,7 @@ async function cargarDatos(){
     for(let i=1;i<stockRows.length;i++){
       const r=stockRows[i];
       if(!r[0]) continue;
-      STOCK.push({cod:r[0],desc:r[1],stock:parseNum(r[2]),ds:parseNum(r[3]),ss:parseNum(r[4]),q:parseNum(r[5]),com:r[6]||''});
+      STOCK.push({semana:r[0]||'',cod:r[1],desc:r[2],stock:parseNum(r[3]),ds:parseNum(r[4]),ss:parseNum(r[5]),q:parseNum(r[6]),com:r[7]||''});
     }
 
     const sel=document.getElementById('wsel');
@@ -222,6 +226,10 @@ function pillH(st,ff){
   return`<span class="pill p${st}">${ff}%</span>`;
 }
 function fmtFecha(s){if(!s)return'—';const[y,m,d]=s.split('-');return`${d}-${m}-${y}`;}
+function stockDeSemana(wi){
+  const wLabel=(WK[wi]||'').trim().toLowerCase();
+  return STOCK.filter(s=>(s.semana||'').trim().toLowerCase()===wLabel);
+}
 function agregarPlan(){
   const desc=document.getElementById('pa-desc').value.trim();
   const resp=document.getElementById('pa-resp').value.trim();
@@ -238,42 +246,39 @@ function eliminarPlan(idx){PLANES.splice(idx,1);render();}
 function buildCharts(){
   Object.values(charts).forEach(c=>c.destroy());
   charts={};
-  const COLORS=['#58a6ff','#3fb950','#f85149','#d29922','#bc8cff','#5DCAA5','#F0997B','#FAC775','#85B7EB','#97C459','#ED93B1','#f07070','#70aaf0','#e8a838','#B4B2A9'];
-  const datasets=IND.map((ind,i)=>({
-    label:ind.label,data:ind.real.map(v=>v),
-    borderColor:COLORS[i%COLORS.length],backgroundColor:'transparent',
-    borderWidth:2.5,pointRadius:5,pointHoverRadius:7,tension:0.3,spanGaps:true,
-  }));
-  const leg=document.getElementById('legend-trend');
-  if(leg) leg.innerHTML=IND.map((ind,i)=>`
-    <span style="display:flex;align-items:center;gap:6px;font-size:14px;color:#8b949e;cursor:pointer" onclick="toggleLine(${i})" id="leg-${i}">
-      <span style="width:24px;height:3px;background:${COLORS[i%COLORS.length]};display:inline-block;border-radius:2px"></span>
-      ${ind.label}</span>`).join('');
-  const ctx=document.getElementById('chart-trend').getContext('2d');
-  charts.trend=new Chart(ctx,{
-    type:'line',data:{labels:WK,datasets},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{legend:{display:false},tooltip:{
-        backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,
-        titleColor:'#e6edf3',bodyColor:'#8b949e',
-        titleFont:{size:14,family:'Calibri'},bodyFont:{size:13,family:'Calibri'},
-        callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y??'N/A'}`}
-      }},
-      scales:{
-        x:{ticks:{color:'#8b949e',font:{size:14,family:'Calibri'}},grid:{color:'#21262d'}},
-        y:{ticks:{color:'#8b949e',font:{size:14,family:'Calibri'}},grid:{color:'#21262d'}}
+  IND.forEach((ind,i)=>{
+    const canvas=document.getElementById(`chart-ind-${i}`);
+    if(!canvas) return;
+    const areaColor=ACFG[ind.area]?ACFG[ind.area].color:'#58a6ff';
+    const objSeries=WK.map((_,wi)=>getObj(ind,wi));
+    const ctx=canvas.getContext('2d');
+    charts[`ind${i}`]=new Chart(ctx,{
+      type:'line',
+      data:{labels:WK,datasets:[
+        {label:'Real',data:ind.real,borderColor:areaColor,backgroundColor:'transparent',
+         borderWidth:2.5,pointRadius:4,pointHoverRadius:6,tension:0.3,spanGaps:true},
+        {label:'Objetivo',data:objSeries,borderColor:'#8b949e',backgroundColor:'transparent',
+         borderWidth:2,borderDash:[6,4],pointRadius:0,tension:0,spanGaps:true}
+      ]},
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{
+          legend:{display:true,position:'bottom',labels:{color:'#8b949e',boxWidth:16,font:{size:12,family:'Calibri'}}},
+          tooltip:{
+            backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,
+            titleColor:'#e6edf3',bodyColor:'#8b949e',
+            titleFont:{size:13,family:'Calibri'},bodyFont:{size:12,family:'Calibri'},
+            callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y??'N/A'}`}
+          }
+        },
+        scales:{
+          x:{ticks:{color:'#8b949e',font:{size:11,family:'Calibri'}},grid:{color:'#21262d'}},
+          y:{ticks:{color:'#8b949e',font:{size:11,family:'Calibri'}},grid:{color:'#21262d'}}
+        }
       }
-    }
+    });
   });
-}
-function toggleLine(idx){
-  const meta=charts.trend.getDatasetMeta(idx);
-  meta.hidden=!meta.hidden;
-  charts.trend.update();
-  const leg=document.getElementById(`leg-${idx}`);
-  if(leg) leg.style.opacity=meta.hidden?'0.3':'1';
 }
 
 function render(){
@@ -282,7 +287,8 @@ function render(){
   const verde=measured.filter(i=>getSt(i,wi)==='g').length;
   const rojo=measured.filter(i=>getSt(i,wi)==='r').length;
   const pct=measured.length?Math.round(verde/measured.length*100):0;
-  const qA=STOCK.filter(s=>s.q>0).length;
+  const stockSem=stockDeSemana(wi);
+  const qA=stockSem.filter(s=>s.q>0).length;
 
   document.getElementById('sum-grid').innerHTML=`
     <div class="sk sk-green">
@@ -307,7 +313,7 @@ function render(){
       <div class="sk-lbl"><i class="ti ti-alert-triangle" style="font-size:20px;margin-right:6px"></i>Quiebres MP activos</div>
       <div class="sk-num">${qA}</div>
       <div class="sk-sub">ítems bajo stock de seguridad</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(qA/Math.max(STOCK.length,1)*100)}%"></div></div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(qA/Math.max(stockSem.length,1)*100)}%"></div></div>
     </div>`;
 
   let html='';
@@ -385,6 +391,7 @@ function render(){
     <div class="area-head">
       <i class="ti ti-box area-icon" style="color:#d29922"></i>
       <span class="area-title">Quiebres de stock MP</span>
+      <span style="font-size:16px;color:#8b949e;font-weight:600;margin-left:10px">— ${WK[wi]||''}</span>
       <div class="area-counts"><span class="cnt cnt-r">${qA} activos</span></div>
     </div>
     <table><thead><tr>
@@ -396,7 +403,10 @@ function render(){
       <th class="c" style="width:10%">Quiebre</th>
       <th style="width:30%">Comentario</th>
     </tr></thead><tbody>`;
-  for(const s of STOCK){
+  if(!stockSem.length){
+    html+=`<tr><td colspan="7" style="text-align:center;color:#8b949e;font-size:18px;padding:30px">Sin registro de stock para esta semana</td></tr>`;
+  }
+  for(const s of stockSem){
     const qb=s.q>0?`<span class="pill pr" style="min-width:48px">${s.q}</span>`:`<span class="pill pg" style="min-width:48px">0</span>`;
     html+=`<tr>
       <td><span class="cod">${s.cod}</span></td>
@@ -413,13 +423,19 @@ function render(){
   html+=`<div class="area-block area-chart">
     <div class="area-head">
       <i class="ti ti-chart-line area-icon" style="color:#bc8cff"></i>
-      <span class="area-title">Tendencias — valores reales por semana</span>
+      <span class="area-title">Tendencias por indicador</span>
     </div>
-    <div style="padding:16px 20px 8px;display:flex;flex-wrap:wrap;gap:12px" id="legend-trend"></div>
-    <div style="padding:8px 20px 20px;position:relative;height:420px">
-      <canvas id="chart-trend" role="img" aria-label="Líneas de tendencia"></canvas>
-    </div>
-  </div>`;
+    <div class="ind-charts-grid">`;
+  IND.forEach((ind,i)=>{
+    const unitLabel=ind.unidad?`<span class="ind-unit">(${ind.unidad})</span>`:'';
+    html+=`<div class="ind-chart-card">
+      <div class="ind-chart-title">${ind.label}${unitLabel}</div>
+      <div style="position:relative;height:230px">
+        <canvas id="chart-ind-${i}" role="img" aria-label="Tendencia ${ind.label}"></canvas>
+      </div>
+    </div>`;
+  });
+  html+=`</div></div>`;
 
   document.getElementById('body').innerHTML=html;
   setTimeout(buildCharts,50);
