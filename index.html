@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VISTA PREVIA (datos de ejemplo) — Dashboard Operaciones COVISA</title>
+<title>Dashboard Operaciones — COVISA</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Calibri',Candara,Segoe,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh}
-.demo-banner{background:#3b2a0d;color:#f2c766;text-align:center;padding:10px;font-size:14px;font-weight:700}
 .topbar{background:#161b22;border-bottom:1px solid #21262d;padding:18px 28px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:14px}
 .brand-icon{color:#58a6ff;font-size:32px}
@@ -16,7 +15,8 @@ body{font-family:'Calibri',Candara,Segoe,sans-serif;background:#0d1117;color:#e6
 .brand-sub{font-size:20px;color:#8b949e;margin-left:12px;font-weight:500}
 .week-ctl{display:flex;align-items:center;gap:12px}
 .week-ctl span{font-size:20px;color:#8b949e;font-weight:600}
-.week-ctl select{font-size:20px;padding:10px 16px;background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:8px;outline:none;font-weight:600;font-family:'Calibri',sans-serif}
+.week-ctl select{font-size:20px;padding:10px 16px;background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:8px;outline:none;font-weight:600;font-family:'Calibri',Candara,Segoe,sans-serif}
+.refresh-btn{font-size:15px;padding:8px 16px;background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.3);border-radius:6px;cursor:pointer;font-family:'Calibri',sans-serif;font-weight:600}
 .sum-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#21262d;border-bottom:1px solid #21262d}
 .sk{background:#161b22;padding:30px 32px;border-left:4px solid transparent}
 .sk-lbl{font-size:17px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8b949e;margin-bottom:12px}
@@ -37,10 +37,11 @@ body{font-family:'Calibri',Candara,Segoe,sans-serif;background:#0d1117;color:#e6
 .cnt{font-size:18px;padding:6px 16px;border-radius:20px;font-weight:700}
 .cnt-g{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.3)}
 .cnt-r{background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)}
+.loading{text-align:center;padding:60px;font-size:20px;color:#8b949e}
 table{width:100%;border-collapse:collapse;table-layout:fixed}
-th{font-size:17px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8b949e;padding:16px 24px;text-align:left;background:#0d1117;border-bottom:1px solid #21262d}
+th{font-size:17px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8b949e;padding:16px 24px;text-align:left;background:#0d1117;border-bottom:1px solid #21262d;font-family:'Calibri',Candara,Segoe,sans-serif}
 th.r{text-align:right}th.c{text-align:center}
-td{font-size:22px;padding:20px 24px;border-bottom:1px solid #1c2128;vertical-align:middle}
+td{font-size:22px;padding:20px 24px;border-bottom:1px solid #1c2128;vertical-align:middle;font-family:'Calibri',Candara,Segoe,sans-serif}
 td.r{text-align:right}td.c{text-align:center}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#1c2128}
@@ -48,13 +49,18 @@ tr:hover td{background:#1c2128}
 .ind-unit{font-size:16px;color:#6b8aaa;font-weight:500;margin-left:6px}
 .val-obj{color:#8b949e;font-size:56px;font-weight:600}
 .val-real{color:#e6edf3;font-size:56px;font-weight:700}
-.pill{display:inline-flex;align-items:center;justify-content:center;padding:8px 20px;border-radius:24px;font-size:20px;font-weight:700;min-width:90px}
+.pill{display:inline-flex;align-items:center;justify-content:center;padding:8px 20px;border-radius:24px;font-size:20px;font-weight:700;min-width:90px;font-family:'Calibri',Candara,Segoe,sans-serif}
 .pg{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.3)}
 .pr{background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)}
+.pn{background:rgba(139,148,158,.1);color:#8b949e;border:1px solid rgba(139,148,158,.2)}
+.spark{display:inline-flex;align-items:flex-end;gap:4px;height:36px}
+.sb{width:14px;border-radius:3px 3px 0 0}
+.na-val{color:#4a5568;font-size:18px}
 .area-prod .area-head{border-left:4px solid #58a6ff}
 .area-qa   .area-head{border-left:4px solid #3fb950}
 .area-maint .area-head{border-left:4px solid #d29922}
 .area-sc   .area-head{border-left:4px solid #bc8cff}
+.area-pa   .area-head{border-left:4px solid #58a6ff}
 .area-stk  .area-head{border-left:4px solid #d29922}
 .area-chart .area-head{border-left:4px solid #bc8cff}
 .cod{font-family:monospace;font-size:16px;color:#8b949e}
@@ -62,13 +68,9 @@ tr:hover td{background:#1c2128}
 .ind-chart-card{background:#161b22;padding:18px 20px 12px}
 .ind-chart-title{font-size:18px;font-weight:700;color:#e6edf3;margin-bottom:10px}
 .ind-chart-title .ind-unit{font-size:14px;color:#6b8aaa;font-weight:500;margin-left:4px}
-.sheet-hint{background:#161b22;border:1px solid #30363d;border-radius:10px;margin:16px 24px 0;padding:14px 22px;font-size:14px;color:#8b949e}
-.sheet-hint code{background:#0d1117;padding:2px 8px;border-radius:5px;color:#79c0ff;font-family:monospace}
 </style>
 </head>
 <body>
-
-<div class="demo-banner"><i class="ti ti-flask"></i> VISTA PREVIA con datos de ejemplo incrustados (tu archivo real sigue conectado a Google Sheets, esto es solo para ver el resultado aquí en el chat)</div>
 
 <div class="topbar">
   <div class="brand">
@@ -77,21 +79,24 @@ tr:hover td{background:#1c2128}
     <span class="brand-sub">COVISA — Conductores Eléctricos</span>
   </div>
   <div class="week-ctl">
+    <button class="refresh-btn" onclick="cargarDatos()"><i class="ti ti-refresh"></i> Actualizar</button>
     <i class="ti ti-calendar" style="font-size:24px;color:#8b949e"></i>
     <span>Semana</span>
     <select id="wsel" onchange="render()"></select>
   </div>
 </div>
 
-<div class="sheet-hint">
-  Orden de columnas usado en esta vista previa para la hoja de quiebres: <code>SEMANA · CÓDIGO · DESCRIPCIÓN · STOCK · DESV.EST · SS · QUIEBRE · COMENTARIO</code>. Confírmame si es el orden real de tu hoja.
+<div class="sum-grid" id="sum-grid">
+  <div class="sk" style="grid-column:span 4"><div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div></div>
 </div>
-
-<div class="sum-grid" id="sum-grid"></div>
 <div class="body" id="body"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
+const URL_DATA  ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=816074203&single=true&output=csv';
+const URL_PLANES='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=526759942&single=true&output=csv';
+const URL_STOCK ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=1914223095&single=true&output=csv';
+
 const ACFG={
   PROD:{label:'Producción',    icon:'ti-bolt',         color:'#58a6ff',cls:'area-prod'},
   QA:  {label:'Calidad',       icon:'ti-shield-check', color:'#3fb950',cls:'area-qa'},
@@ -99,145 +104,336 @@ const ACFG={
   SC:  {label:'Supply chain',  icon:'ti-package',      color:'#bc8cff',cls:'area-sc'},
 };
 
-const WK=['Semana 26','Semana 27','Semana 28'];
+let WK=[],IND=[],PLANES=[],STOCK=[],charts={};
 
-const IND=[
-  {label:'OEE Línea 1',unidad:'%',area:'PROD',obj:85,real:[81,83,86]},
-  {label:'Producción toneladas',unidad:'ton',area:'PROD',obj:120,real:[110,118,125]},
-  {label:'Rechazo de calidad',unidad:'%',area:'QA',obj:2,real:[2.8,2.1,1.6]},
-  {label:'Reclamos de cliente',unidad:'#',area:'QA',obj:1,real:[2,1,0]},
-  {label:'Disponibilidad equipos',unidad:'%',area:'MAINT',obj:92,real:[88,90,93]},
-  {label:'MTTR',unidad:'hrs',area:'MAINT',obj:4,real:[5.2,4.6,3.9]},
-  {label:'Entregas a tiempo',unidad:'%',area:'SC',obj:95,real:[90,94,96]},
-  {label:'Rotura de stock',unidad:'#',area:'SC',obj:0,real:[3,2,3]},
-];
-
-const PLANES=[
-  {desc:'Ajustar torque en prensa N°3',resp:'MANT-JCA',inicio:'2026-06-25',revision:'2026-07-05'},
-  {desc:'Revisar proveedor XLPE por atrasos',resp:'SC-FRK',inicio:'2026-06-20',revision:'2026-07-10'},
-];
-
-const STOCK_ROWS=[
-  ['Semana 26','TNG0001','Cable THHN 12AWG',120,4.0,2.9,0,'Ok'],
-  ['Semana 26','XJ00100','Aislante XLPE 10mm',30,525.0,448.3,737.4,'Crítico, pedido en curso'],
-  ['Semana 26','XP00104','Conductor Cu 4/0',60,567.6,371.9,611.7,'Proveedor con atraso'],
-  ['Semana 27','TNG0001','Cable THHN 12AWG',95,4.0,2.9,0,'Ok'],
-  ['Semana 27','XJ00100','Aislante XLPE 10mm',12,525.0,448.3,0,'Se normalizó'],
-  ['Semana 27','YB00090','Vaina PVC negra',8,0.0,59.5,97.9,'Bajo SS'],
-  ['Semana 28','TNG0001','Cable THHN 12AWG',102,4.0,2.9,0,'Ok'],
-  ['Semana 28','YB00100','Terminal bimetálico',5,0.0,66.5,109.4,'Bajo SS'],
-  ['Semana 28','ZB00404','Cinta autofundente',3,40.75,38.07,62.6,'Bajo SS'],
-];
-const STOCK=STOCK_ROWS.map(r=>({semana:r[0],cod:r[1],desc:r[2],stock:r[3],ds:r[4],ss:r[5],q:r[6],com:r[7]}));
-
-let charts={};
-function fmt(v){return v==null?'—':(Number.isInteger(v)?v:v.toFixed(1));}
-function getSt(ind,wi){
-  const v=ind.real[wi],o=ind.obj;
-  if(v==null)return'n';
-  // menor-mejor si obj cercano a 0 en indicadores tipo defecto/reclamo/rotura
-  const lowerBetter=/rechazo|reclamo|rotura|mttr/i.test(ind.label);
-  return lowerBetter?(v<=o?'g':'r'):(v>=o?'g':'r');
+function parseCSV(text){
+  const rows=[];
+  for(const line of text.trim().split('\n')){
+    const row=[];
+    let cur='',inQ=false;
+    for(let i=0;i<line.length;i++){
+      const c=line[i];
+      if(c==='"'){inQ=!inQ;}
+      else if(c===','&&!inQ){row.push(cur.trim());cur='';}
+      else cur+=c;
+    }
+    row.push(cur.trim());
+    rows.push(row);
+  }
+  return rows;
 }
-function pillH(st){return st==='g'?'<span class="pill pg">Cumple</span>':st==='r'?'<span class="pill pr">No cumple</span>':'<span class="pill" style="background:rgba(139,148,158,.1);color:#8b949e">Sin dato</span>';}
+
+function parseNum(v){
+  if(!v||v==='-'||v==='') return null;
+  return parseFloat(v.replace(',','.').replace('%',''));
+}
+
+async function fetchCSV(url){
+  const r=await fetch(url);
+  const t=await r.text();
+  return parseCSV(t);
+}
+
+async function cargarDatos(){
+  document.getElementById('sum-grid').innerHTML='<div class="sk" style="grid-column:span 4"><div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div></div>';
+  document.getElementById('body').innerHTML='';
+  try{
+    const [dataRows,planesRows,stockRows]=await Promise.all([
+      fetchCSV(URL_DATA),fetchCSV(URL_PLANES),fetchCSV(URL_STOCK)
+    ]);
+
+    WK=dataRows[0].slice(6);
+    IND=[];
+    const objRows=[];
+    for(let i=1;i<dataRows.length;i++){
+      const row=dataRows[i];
+      if(!row[0]) continue;
+      const vals=row.slice(6).map(v=>parseNum(v));
+      if(row[0].includes('OBJ')){
+        objRows.push({label:row[0],vals});
+      } else {
+        const labelBase=row[0].replace(' Real','');
+        const objRow=objRows.find(x=>x.label.replace(' OBJ','')===labelBase);
+        IND.push({
+          id:row[0].toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,10),
+          label:labelBase,area:row[1],logica:row[3],
+          objFijo:parseNum(row[4]),unidad:row[5]||'',
+          obj:objRow?objRow.vals:null,real:vals,
+        });
+      }
+    }
+
+    PLANES=[];
+    for(let i=1;i<planesRows.length;i++){
+      const r=planesRows[i];
+      if(!r[0]) continue;
+      PLANES.push({desc:r[0],resp:r[1]||'—',inicio:r[2]||'—',revision:r[3]||'—'});
+    }
+
+    STOCK=[];
+    for(let i=1;i<stockRows.length;i++){
+      const r=stockRows[i];
+      if(!r[0]) continue;
+      STOCK.push({semana:r[0]||'',cod:r[1],desc:r[2],stock:parseNum(r[3]),ds:parseNum(r[4]),ss:parseNum(r[5]),q:parseNum(r[6]),com:r[7]||''});
+    }
+
+    const sel=document.getElementById('wsel');
+    sel.innerHTML='';
+    WK.forEach((w,i)=>{const o=document.createElement('option');o.value=i;o.textContent=w;sel.appendChild(o);});
+    sel.value=WK.length-1;
+    render();
+
+  }catch(e){
+    document.getElementById('sum-grid').innerHTML=`<div class="sk" style="grid-column:span 4"><div class="loading" style="color:#f85149"><i class="ti ti-alert-triangle"></i> Error: ${e.message}</div></div>`;
+  }
+}
+
+function getObj(ind,wi){
+  if(ind.objFijo!==null&&ind.objFijo!==undefined) return ind.objFijo;
+  return ind.obj?ind.obj[wi]:null;
+}
+function getSt(ind,wi){
+  const r=ind.real[wi],o=getObj(ind,wi);
+  if(r==null||o==null) return 'na';
+  return ind.logica==='mayor'?(r>=o?'g':'r'):(r<=o?'g':'r');
+}
+function getFF(ind,wi){
+  const r=ind.real[wi],o=getObj(ind,wi);
+  if(r==null||o==null) return null;
+  if(ind.logica==='mayor') return o!==0?Math.round(r/o*100):100;
+  if(r===0) return 100;
+  return Math.round(o/r*100);
+}
+function fmt(v){
+  if(v==null) return '<span class="na-val">N/A</span>';
+  return String(Number.isInteger(v)?v:parseFloat(v.toFixed(2)));
+}
+function spk(ind,wi){
+  const vals=ind.real.filter(x=>x!=null);
+  if(!vals.length) return '';
+  const mx=Math.max(...vals.map(Math.abs));
+  let b='';
+  for(let i=Math.max(0,wi-4);i<=wi;i++){
+    const v=ind.real[i],st=getSt(ind,i);
+    const col=st==='g'?'#3fb950':st==='r'?'#f85149':'#30363d';
+    const h=v==null?4:Math.max(6,Math.round(Math.abs(v)/Math.max(mx,1)*34));
+    b+=`<div class="sb" style="height:${h}px;background:${col}"></div>`;
+  }
+  return`<span class="spark">${b}</span>`;
+}
+function pillH(st,ff){
+  if(st==='na') return '<span class="pill pn">N/A</span>';
+  return`<span class="pill p${st}">${ff}%</span>`;
+}
+function fmtFecha(s){if(!s)return'—';const[y,m,d]=s.split('-');return`${d}-${m}-${y}`;}
 function stockDeSemana(wi){
   const wLabel=(WK[wi]||'').trim().toLowerCase();
   return STOCK.filter(s=>(s.semana||'').trim().toLowerCase()===wLabel);
 }
+function agregarPlan(){
+  const desc=document.getElementById('pa-desc').value.trim();
+  const resp=document.getElementById('pa-resp').value.trim();
+  const ini=document.getElementById('pa-ini').value;
+  const rev=document.getElementById('pa-rev').value;
+  if(!desc){document.getElementById('pa-desc').style.border='1px solid #f85149';return;}
+  document.getElementById('pa-desc').style.border='1px solid #30363d';
+  PLANES.push({desc,resp:resp||'—',inicio:fmtFecha(ini)||'—',revision:fmtFecha(rev)||'—'});
+  ['pa-desc','pa-resp','pa-ini','pa-rev'].forEach(id=>document.getElementById(id).value='');
+  render();
+}
+function eliminarPlan(idx){PLANES.splice(idx,1);render();}
+
+function buildCharts(){
+  Object.values(charts).forEach(c=>c.destroy());
+  charts={};
+  IND.forEach((ind,i)=>{
+    const canvas=document.getElementById(`chart-ind-${i}`);
+    if(!canvas) return;
+    const areaColor=ACFG[ind.area]?ACFG[ind.area].color:'#58a6ff';
+    const objSeries=WK.map((_,wi)=>getObj(ind,wi));
+    const ctx=canvas.getContext('2d');
+    charts[`ind${i}`]=new Chart(ctx,{
+      type:'line',
+      data:{labels:WK,datasets:[
+        {label:'Real',data:ind.real,borderColor:areaColor,backgroundColor:'transparent',
+         borderWidth:2.5,pointRadius:4,pointHoverRadius:6,tension:0.3,spanGaps:true},
+        {label:'Objetivo',data:objSeries,borderColor:'#8b949e',backgroundColor:'transparent',
+         borderWidth:2,borderDash:[6,4],pointRadius:0,tension:0,spanGaps:true}
+      ]},
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{
+          legend:{display:true,position:'bottom',labels:{color:'#8b949e',boxWidth:16,font:{size:12,family:'Calibri'}}},
+          tooltip:{
+            backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,
+            titleColor:'#e6edf3',bodyColor:'#8b949e',
+            titleFont:{size:13,family:'Calibri'},bodyFont:{size:12,family:'Calibri'},
+            callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y??'N/A'}`}
+          }
+        },
+        scales:{
+          x:{ticks:{color:'#8b949e',font:{size:11,family:'Calibri'}},grid:{color:'#21262d'}},
+          y:{ticks:{color:'#8b949e',font:{size:11,family:'Calibri'}},grid:{color:'#21262d'}}
+        }
+      }
+    });
+  });
+}
 
 function render(){
-  const sel=document.getElementById('wsel');
-  if(!sel.options.length){
-    WK.forEach((w,i)=>sel.add(new Option(w,i)));
-    sel.value=WK.length-1;
-  }
-  const wi=parseInt(sel.value);
+  const wi=parseInt(document.getElementById('wsel').value);
+  const measured=IND.filter(i=>getSt(i,wi)!=='na');
+  const verde=measured.filter(i=>getSt(i,wi)==='g').length;
+  const rojo=measured.filter(i=>getSt(i,wi)==='r').length;
+  const pct=measured.length?Math.round(verde/measured.length*100):0;
   const stockSem=stockDeSemana(wi);
   const qA=stockSem.filter(s=>s.q>0).length;
-  const av=IND.filter(r=>getSt(r,wi)==='g').length;
-  const ar=IND.filter(r=>getSt(r,wi)==='r').length;
-  const pct=Math.round(av/IND.length*100);
 
   document.getElementById('sum-grid').innerHTML=`
-    <div class="sk sk-green"><div class="sk-lbl"><i class="ti ti-circle-check" style="font-size:20px;margin-right:6px"></i>Indicadores OK</div>
-      <div class="sk-num">${av}</div><div class="sk-sub">${WK[wi]}</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(av/IND.length*100)}%"></div></div></div>
-    <div class="sk sk-red"><div class="sk-lbl"><i class="ti ti-alert-circle" style="font-size:20px;margin-right:6px"></i>Indicadores fuera de meta</div>
-      <div class="sk-num">${ar}</div><div class="sk-sub">${WK[wi]}</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(ar/IND.length*100)}%"></div></div></div>
-    <div class="sk sk-blue"><div class="sk-lbl"><i class="ti ti-percentage" style="font-size:20px;margin-right:6px"></i>Cumplimiento global</div>
-      <div class="sk-num">${pct}%</div><div class="sk-sub">${WK[wi]}</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${pct}%"></div></div></div>
-    <div class="sk sk-amber"><div class="sk-lbl"><i class="ti ti-alert-triangle" style="font-size:20px;margin-right:6px"></i>Quiebres MP activos</div>
-      <div class="sk-num">${qA}</div><div class="sk-sub">de ${stockSem.length} ítems esta semana</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(qA/Math.max(stockSem.length,1)*100)}%"></div></div></div>`;
+    <div class="sk sk-green">
+      <div class="sk-lbl"><i class="ti ti-circle-check" style="font-size:20px;margin-right:6px"></i>Cumpliendo</div>
+      <div class="sk-num">${verde}</div>
+      <div class="sk-sub">de ${measured.length} indicadores medidos</div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(verde/Math.max(measured.length,1)*100)}%"></div></div>
+    </div>
+    <div class="sk sk-red">
+      <div class="sk-lbl"><i class="ti ti-circle-x" style="font-size:20px;margin-right:6px"></i>Con desvío</div>
+      <div class="sk-num">${rojo}</div>
+      <div class="sk-sub">de ${measured.length} indicadores medidos</div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(rojo/Math.max(measured.length,1)*100)}%"></div></div>
+    </div>
+    <div class="sk sk-blue">
+      <div class="sk-lbl"><i class="ti ti-percentage" style="font-size:20px;margin-right:6px"></i>Cumplimiento global</div>
+      <div class="sk-num">${pct}%</div>
+      <div class="sk-sub">${WK[wi]}</div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="sk sk-amber">
+      <div class="sk-lbl"><i class="ti ti-alert-triangle" style="font-size:20px;margin-right:6px"></i>Quiebres MP activos</div>
+      <div class="sk-num">${qA}</div>
+      <div class="sk-sub">ítems bajo stock de seguridad</div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(qA/Math.max(stockSem.length,1)*100)}%"></div></div>
+    </div>`;
 
   let html='';
 
   html+=`<div class="area-block area-pa">
-    <div class="area-head"><i class="ti ti-clipboard-list area-icon" style="color:#58a6ff"></i>
-    <span class="area-title">Planes de acción</span>
-    <div class="area-counts"><span class="cnt" style="background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.25)">${PLANES.length} activos</span></div></div>
-    <table><thead><tr><th style="width:46%">Descripción</th><th style="width:18%">Responsable</th><th style="width:18%">Inicio</th><th style="width:18%">Revisión</th></tr></thead><tbody>`;
+    <div class="area-head">
+      <i class="ti ti-clipboard-list area-icon" style="color:#58a6ff"></i>
+      <span class="area-title">Planes de acción</span>
+      <div class="area-counts"><span class="cnt" style="background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.25)">${PLANES.length} activo${PLANES.length!==1?'s':''}</span></div>
+    </div>
+    <table><thead><tr>
+      <th style="width:46%">Descripción</th>
+      <th style="width:18%">Responsable</th>
+      <th style="width:18%">Inicio</th>
+      <th style="width:18%">Revisión</th>
+    </tr></thead><tbody>`;
   PLANES.forEach(p=>{
-    html+=`<tr><td style="font-size:20px;color:#cdd9e5;font-weight:500">${p.desc}</td>
+    html+=`<tr>
+      <td style="font-size:20px;color:#cdd9e5;font-weight:500">${p.desc}</td>
       <td style="font-size:20px;color:#8b949e;font-weight:600">${p.resp}</td>
       <td style="font-size:20px;color:#8b949e;font-weight:600">${p.inicio}</td>
-      <td style="font-size:20px;color:#8b949e;font-weight:600">${p.revision}</td></tr>`;
+      <td style="font-size:20px;color:#8b949e;font-weight:600">${p.revision}</td>
+    </tr>`;
   });
-  html+=`</tbody></table></div>`;
+  html+=`</tbody></table>
+    <div style="padding:18px 24px;border-top:1px solid #21262d;display:grid;grid-template-columns:3fr 1fr 1fr 1fr auto;gap:10px;align-items:end">
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Descripción</div>
+        <input id="pa-desc" type="text" placeholder="Descripción del plan..." style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Responsable</div>
+        <input id="pa-resp" type="text" placeholder="Ej: WOP-EVL" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Inicio</div>
+        <input id="pa-ini" type="date" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Revisión</div>
+        <input id="pa-rev" type="date" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <button onclick="agregarPlan()" style="font-size:17px;font-weight:700;padding:10px 20px;background:#58a6ff;color:#0d1117;border:none;border-radius:7px;cursor:pointer;font-family:'Calibri',sans-serif;white-space:nowrap"><i class="ti ti-plus" style="margin-right:4px"></i>Agregar</button>
+    </div>
+  </div>`;
 
   for(const area of ['PROD','QA','MAINT','SC']){
     const cfg=ACFG[area];
     const rows=IND.filter(r=>r.area===area);
-    const avA=rows.filter(r=>getSt(r,wi)==='g').length;
-    const arA=rows.filter(r=>getSt(r,wi)==='r').length;
+    const av=rows.filter(r=>getSt(r,wi)==='g').length;
+    const ar=rows.filter(r=>getSt(r,wi)==='r').length;
     html+=`<div class="area-block ${cfg.cls}">
-      <div class="area-head"><i class="ti ${cfg.icon} area-icon" style="color:${cfg.color}"></i>
-      <span class="area-title">${cfg.label}</span>
-      <div class="area-counts"><span class="cnt cnt-g">${avA} ✓</span><span class="cnt cnt-r">${arA} ✗</span></div></div>
-      <table><thead><tr><th style="width:36%">Indicador</th><th class="r" style="width:18%">Objetivo</th><th class="r" style="width:18%">Real</th><th class="c" style="width:28%">Cumplimiento</th></tr></thead><tbody>`;
+      <div class="area-head">
+        <i class="ti ${cfg.icon} area-icon" style="color:${cfg.color}"></i>
+        <span class="area-title">${cfg.label}</span>
+        <div class="area-counts">
+          <span class="cnt cnt-g">${av} ✓</span>
+          <span class="cnt cnt-r">${ar} ✗</span>
+        </div>
+      </div>
+      <table><thead><tr>
+        <th style="width:36%">Indicador</th>
+        <th class="r" style="width:14%">Objetivo</th>
+        <th class="r" style="width:14%">Real</th>
+        <th class="c" style="width:18%">Cumplimiento</th>
+        <th class="c" style="width:18%">Tendencia</th>
+      </tr></thead><tbody>`;
     for(const ind of rows){
-      const st=getSt(ind,wi);
+      const st=getSt(ind,wi),ff=getFF(ind,wi);
       const unitLabel=ind.unidad?`<span class="ind-unit">(${ind.unidad})</span>`:'';
-      html+=`<tr><td><span class="ind-name">${ind.label}</span>${unitLabel}</td>
-        <td class="r"><span class="val-obj">${fmt(ind.obj)}</span></td>
+      html+=`<tr>
+        <td><span class="ind-name">${ind.label}</span>${unitLabel}</td>
+        <td class="r"><span class="val-obj">${fmt(getObj(ind,wi))}</span></td>
         <td class="r"><span class="val-real">${fmt(ind.real[wi])}</span></td>
-        <td class="c">${pillH(st)}</td></tr>`;
+        <td class="c">${pillH(st,ff)}</td>
+        <td class="c">${spk(ind,wi)}</td>
+      </tr>`;
     }
     html+=`</tbody></table></div>`;
   }
 
   html+=`<div class="area-block area-stk">
-    <div class="area-head"><i class="ti ti-box area-icon" style="color:#d29922"></i>
-    <span class="area-title">Quiebres de stock MP</span>
-    <span style="font-size:16px;color:#8b949e;font-weight:600;margin-left:10px">— ${WK[wi]}</span>
-    <div class="area-counts"><span class="cnt cnt-r">${qA} activos</span></div></div>
-    <table><thead><tr><th style="width:10%">Código</th><th style="width:22%">Descripción</th>
-    <th class="r" style="width:9%">Stock</th><th class="r" style="width:10%">Desv.Est.</th>
-    <th class="r" style="width:9%">SS</th><th class="c" style="width:10%">Quiebre</th><th style="width:30%">Comentario</th></tr></thead><tbody>`;
+    <div class="area-head">
+      <i class="ti ti-box area-icon" style="color:#d29922"></i>
+      <span class="area-title">Quiebres de stock MP</span>
+      <span style="font-size:16px;color:#8b949e;font-weight:600;margin-left:10px">— ${WK[wi]||''}</span>
+      <div class="area-counts"><span class="cnt cnt-r">${qA} activos</span></div>
+    </div>
+    <table><thead><tr>
+      <th style="width:10%">Código</th>
+      <th style="width:22%">Descripción</th>
+      <th class="r" style="width:9%">Stock</th>
+      <th class="r" style="width:10%">Desv.Est.</th>
+      <th class="r" style="width:9%">SS</th>
+      <th class="c" style="width:10%">Quiebre</th>
+      <th style="width:30%">Comentario</th>
+    </tr></thead><tbody>`;
   if(!stockSem.length){
     html+=`<tr><td colspan="7" style="text-align:center;color:#8b949e;font-size:18px;padding:30px">Sin registro de stock para esta semana</td></tr>`;
   }
   for(const s of stockSem){
     const qb=s.q>0?`<span class="pill pr" style="min-width:48px">${s.q}</span>`:`<span class="pill pg" style="min-width:48px">0</span>`;
-    html+=`<tr><td><span class="cod">${s.cod}</span></td>
+    html+=`<tr>
+      <td><span class="cod">${s.cod}</span></td>
       <td style="font-size:20px;color:#cdd9e5;font-weight:500">${s.desc}</td>
       <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.stock!=null&&!isNaN(s.stock)?s.stock.toFixed(2):'—'}</td>
       <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.ds!=null&&!isNaN(s.ds)?s.ds.toFixed(2):'—'}</td>
       <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.ss!=null&&!isNaN(s.ss)?s.ss.toFixed(2):'—'}</td>
-      <td class="c">${qb}</td><td style="font-size:17px;color:#8b949e">${s.com}</td></tr>`;
+      <td class="c">${qb}</td>
+      <td style="font-size:17px;color:#8b949e">${s.com}</td>
+    </tr>`;
   }
   html+=`</tbody></table></div>`;
 
   html+=`<div class="area-block area-chart">
-    <div class="area-head"><i class="ti ti-chart-line area-icon" style="color:#bc8cff"></i>
-    <span class="area-title">Tendencias por indicador</span></div>
+    <div class="area-head">
+      <i class="ti ti-chart-line area-icon" style="color:#bc8cff"></i>
+      <span class="area-title">Tendencias por indicador</span>
+    </div>
     <div class="ind-charts-grid">`;
   IND.forEach((ind,i)=>{
     const unitLabel=ind.unidad?`<span class="ind-unit">(${ind.unidad})</span>`:'';
-    html+=`<div class="ind-chart-card"><div class="ind-chart-title">${ind.label}${unitLabel}</div>
-      <div style="position:relative;height:230px"><canvas id="chart-ind-${i}"></canvas></div></div>`;
+    html+=`<div class="ind-chart-card">
+      <div class="ind-chart-title">${ind.label}${unitLabel}</div>
+      <div style="position:relative;height:230px">
+        <canvas id="chart-ind-${i}" role="img" aria-label="Tendencia ${ind.label}"></canvas>
+      </div>
+    </div>`;
   });
   html+=`</div></div>`;
 
@@ -245,30 +441,7 @@ function render(){
   setTimeout(buildCharts,50);
 }
 
-function buildCharts(){
-  Object.values(charts).forEach(c=>c.destroy());
-  charts={};
-  IND.forEach((ind,i)=>{
-    const canvas=document.getElementById(`chart-ind-${i}`);
-    if(!canvas)return;
-    const areaColor=ACFG[ind.area].color;
-    const ctx=canvas.getContext('2d');
-    charts[`ind${i}`]=new Chart(ctx,{
-      type:'line',
-      data:{labels:WK,datasets:[
-        {label:'Real',data:ind.real,borderColor:areaColor,backgroundColor:'transparent',borderWidth:2.5,pointRadius:4,pointHoverRadius:6,tension:0.3},
-        {label:'Objetivo',data:WK.map(()=>ind.obj),borderColor:'#8b949e',backgroundColor:'transparent',borderWidth:2,borderDash:[6,4],pointRadius:0}
-      ]},
-      options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-        plugins:{legend:{display:true,position:'bottom',labels:{color:'#8b949e',boxWidth:16,font:{size:12}}},
-          tooltip:{backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#8b949e'}},
-        scales:{x:{ticks:{color:'#8b949e',font:{size:11}},grid:{color:'#21262d'}},
-                y:{ticks:{color:'#8b949e',font:{size:11}},grid:{color:'#21262d'}}}}
-    });
-  });
-}
-
-render();
+cargarDatos();
 </script>
 </body>
 </html>
