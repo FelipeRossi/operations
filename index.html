@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VISTA PREVIA COMPLETA — Dashboard Operaciones COVISA</title>
+<title>Dashboard Operaciones — COVISA</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Calibri',Candara,Segoe,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh}
-.demo-banner{background:#3b2a0d;color:#f2c766;text-align:center;padding:10px;font-size:14px;font-weight:700}
 .topbar{background:#161b22;border-bottom:1px solid #21262d;padding:18px 28px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:14px}
 .brand-icon{color:#58a6ff;font-size:32px}
@@ -16,7 +15,8 @@ body{font-family:'Calibri',Candara,Segoe,sans-serif;background:#0d1117;color:#e6
 .brand-sub{font-size:20px;color:#8b949e;margin-left:12px;font-weight:500}
 .week-ctl{display:flex;align-items:center;gap:12px}
 .week-ctl span{font-size:20px;color:#8b949e;font-weight:600}
-.week-ctl select{font-size:20px;padding:10px 16px;background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:8px;outline:none;font-weight:600;font-family:'Calibri',sans-serif}
+.week-ctl select{font-size:20px;padding:10px 16px;background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:8px;outline:none;font-weight:600;font-family:'Calibri',Candara,Segoe,sans-serif}
+.refresh-btn{font-size:15px;padding:8px 16px;background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.3);border-radius:6px;cursor:pointer;font-family:'Calibri',sans-serif;font-weight:600}
 .sum-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:#21262d;border-bottom:1px solid #21262d}
 .sk{background:#161b22;padding:30px 32px;border-left:4px solid transparent}
 .sk-lbl{font-size:17px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8b949e;margin-bottom:12px}
@@ -37,31 +37,34 @@ body{font-family:'Calibri',Candara,Segoe,sans-serif;background:#0d1117;color:#e6
 .cnt{font-size:18px;padding:6px 16px;border-radius:20px;font-weight:700}
 .cnt-g{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.3)}
 .cnt-r{background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)}
+.loading{text-align:center;padding:60px;font-size:20px;color:#8b949e}
 table{width:100%;border-collapse:collapse;table-layout:fixed}
-th{font-size:16px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:#8b949e;padding:14px 20px;text-align:left;background:#0d1117;border-bottom:1px solid #21262d}
+th{font-size:17px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8b949e;padding:16px 24px;text-align:left;background:#0d1117;border-bottom:1px solid #21262d;font-family:'Calibri',Candara,Segoe,sans-serif}
 th.r{text-align:right}th.c{text-align:center}
-td{font-size:19px;padding:16px 20px;border-bottom:1px solid #1c2128;vertical-align:middle}
+td{font-size:22px;padding:20px 24px;border-bottom:1px solid #1c2128;vertical-align:middle;font-family:'Calibri',Candara,Segoe,sans-serif}
 td.r{text-align:right}td.c{text-align:center}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#1c2128}
-.ind-name{color:#cdd9e5;font-size:20px;font-weight:600}
-.ind-unit{font-size:15px;color:#6b8aaa;font-weight:500;margin-left:6px}
-.val-obj{color:#8b949e;font-size:44px;font-weight:600}
-.val-real{color:#e6edf3;font-size:44px;font-weight:700}
-.pill{display:inline-flex;align-items:center;justify-content:center;padding:7px 18px;border-radius:22px;font-size:18px;font-weight:700;min-width:80px}
+.ind-name{color:#cdd9e5;font-size:22px;font-weight:600}
+.ind-unit{font-size:16px;color:#6b8aaa;font-weight:500;margin-left:6px}
+.val-obj{color:#8b949e;font-size:56px;font-weight:600}
+.val-real{color:#e6edf3;font-size:56px;font-weight:700}
+.pill{display:inline-flex;align-items:center;justify-content:center;padding:8px 20px;border-radius:24px;font-size:20px;font-weight:700;min-width:90px;font-family:'Calibri',Candara,Segoe,sans-serif}
 .pg{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.3)}
 .pr{background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)}
 .pn{background:rgba(139,148,158,.1);color:#8b949e;border:1px solid rgba(139,148,158,.2)}
-.na-val{color:#4a5568;font-size:16px}
+.spark{display:inline-flex;align-items:flex-end;gap:4px;height:36px}
+.sb{width:14px;border-radius:3px 3px 0 0}
+.na-val{color:#4a5568;font-size:18px}
 .area-prod .area-head{border-left:4px solid #58a6ff}
 .area-qa   .area-head{border-left:4px solid #3fb950}
 .area-maint .area-head{border-left:4px solid #d29922}
 .area-sc   .area-head{border-left:4px solid #bc8cff}
 .area-pa   .area-head{border-left:4px solid #58a6ff}
-.area-stk .area-head{border-left:4px solid #d29922}
+.area-stk  .area-head{border-left:4px solid #d29922}
 .area-ciclos .area-head{border-left:4px solid #39c5cf}
 .area-chart .area-head{border-left:4px solid #bc8cff}
-.cod{font-family:monospace;font-size:15px;color:#8b949e}
+.cod{font-family:monospace;font-size:16px;color:#8b949e}
 .ind-charts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1px;background:#21262d}
 .ind-chart-card{background:#161b22;padding:18px 20px 12px}
 .ind-chart-title{font-size:18px;font-weight:700;color:#e6edf3;margin-bottom:10px}
@@ -70,12 +73,10 @@ tr:hover td{background:#1c2128}
 .tab-btn{font-size:16px;padding:9px 18px;background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:7px;cursor:pointer;font-weight:600;font-family:'Calibri',sans-serif}
 .tab-btn.tab-active{background:rgba(57,197,207,.15);color:#39c5cf;border-color:rgba(57,197,207,.4)}
 .tab-wrap{overflow-x:auto}
-.crit-pill{display:inline-flex;padding:4px 12px;border-radius:14px;font-size:13px;font-weight:700;white-space:nowrap}
+.crit-pill{display:inline-flex;padding:4px 12px;border-radius:14px;font-size:14px;font-weight:700}
 </style>
 </head>
 <body>
-
-<div class="demo-banner"><i class="ti ti-flask"></i> VISTA PREVIA COMPLETA — todos los datos (indicadores, planes, stock, ciclos, SOLPED/PED NAC/PED EX) son los reales de tu Excel. Tu archivo de producción sigue conectado a Google Sheets.</div>
 
 <div class="topbar">
   <div class="brand">
@@ -84,17 +85,30 @@ tr:hover td{background:#1c2128}
     <span class="brand-sub">COVISA — Conductores Eléctricos</span>
   </div>
   <div class="week-ctl">
+    <button class="refresh-btn" onclick="cargarDatos()"><i class="ti ti-refresh"></i> Actualizar</button>
     <i class="ti ti-calendar" style="font-size:24px;color:#8b949e"></i>
     <span>Semana</span>
     <select id="wsel" onchange="render()"></select>
   </div>
 </div>
 
-<div class="sum-grid" id="sum-grid"></div>
+<div class="sum-grid" id="sum-grid">
+  <div class="sk" style="grid-column:span 4"><div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div></div>
+</div>
 <div class="body" id="body"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
+const URL_DATA  ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=816074203&single=true&output=csv';
+const URL_PLANES='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=526759942&single=true&output=csv';
+const URL_STOCK ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=1914223095&single=true&output=csv';
+// TODO Felipe: reemplaza este link por el de "Publicar en la web" → CSV de la pestaña "CICLOS DE COMPRA"
+// (Archivo > Compartir > Publicar en la web > selecciona la hoja CICLOS DE COMPRA > formato CSV > copiar link)
+const URL_CICLOS='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=440360647&single=true&output=csv';
+const URL_SOLPED='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=492647954&single=true&output=csv';
+const URL_PEDNAC='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=2017244215&single=true&output=csv';
+const URL_PEDEX ='https://docs.google.com/spreadsheets/d/e/2PACX-1vQpFXy4kVUlibdPapu1GjtPzussc94aSBHaLp59_D4E3zQ7T2PhwOPH-Laep7On7x8nx3tWGpjud6TW/pub?gid=1754557397&single=true&output=csv';
+
 const ACFG={
   PROD:{label:'Producción',    icon:'ti-bolt',         color:'#58a6ff',cls:'area-prod'},
   QA:  {label:'Calidad',       icon:'ti-shield-check', color:'#3fb950',cls:'area-qa'},
@@ -102,147 +116,183 @@ const ACFG={
   SC:  {label:'Supply chain',  icon:'ti-package',      color:'#bc8cff',cls:'area-sc'},
 };
 
-const WK=["W01-26","W02-26","W03-26","W04-26","W05-26","W06-26","W07-26","W08-26","W09-26","W10-26","W11-26","W12-26","W13-26","W14-26","W15-26","W16-26","W17-26","W18-26","W19-26","W20-26","W21-26","W22-26","W23-26","W24-26","W25-26","W26-26","W27-26","W28-26","W29-26","W30-26","W31-26","W32-26","W33-26","W34-26","W35-26","W36-26","W37-26","W38-26","W39-26","W40-26"];
-const IND=[
-    {label:"Ton Cu Fabricadas",area:"PROD",logica:"mayor",objFijo:null,unidad:"Ton",obj:[43.0,66.0,118.0,120.3,143.0,63.5,91.0,86.0,140.0,114.0,171.0,121.0,135.0,40.0,55.0,85.0,77.0,90.0,68.0,81.0,59.0,81.0,61.0,106.0,47.0,45.0,23.0,null,136.0,119.0,129.0,95.0,60.0,79.0,105.0,72.0,85.0,54.0,71.0,45.0],real:[43.1,65.0,67.9,109.0,116.1,63.5,80.0,87.5,130.0,104.0,151.0,117.0,146.0,35.0,50.0,85.0,75.0,88.0,80.0,86.0,57.0,88.0,65.0,102.0,59.0,44.0,21.0,null,140.0,114.0,105.0,101.0,53.0,75.0,109.0,74.0,82.0,55.0,73.0,null]},
-    {label:"N° Atrasos Cliente",area:"PROD",logica:"menor",objFijo:null,unidad:"",obj:[24.0,15.0,5.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,2.0,0.0,0.0,0.0,null,0.0,5.0,1.0,2.0,1.0,9.0,2.0,2.0,0.0,0.0,0.0,0.0],real:[24.0,19.0,3.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,3.0,0.0,0.0,0.0,0.0,null,13.0,8.0,2.0,3.0,1.0,7.0,0.0,0.0,0.0,0.0,0.0,null]},
-    {label:"N° Atrasos Stock",area:"PROD",logica:"menor",objFijo:null,unidad:"",obj:[15.0,45.0,30.0,49.0,50.0,43.0,30.0,28.0,21.0,18.0,17.0,10.0,17.0,14.0,12.0,10.0,16.0,14.0,11.0,7.0,13.0,19.0,10.0,15.0,13.0,14.0,7.0,null,11.0,12.0,12.0,18.0,14.0,21.0,17.0,22.0,15.0,15.0,23.0,31.0],real:[15.0,48.0,30.0,48.0,50.0,36.0,27.0,27.0,22.0,19.0,13.0,14.0,13.0,11.0,13.0,10.0,16.0,11.0,10.0,9.0,16.0,4.0,12.0,15.0,14.0,8.0,7.0,null,11.0,12.0,11.0,17.0,23.0,16.0,17.0,18.0,17.0,12.0,21.0,null]},
-    {label:"No Conformidad",area:"QA",logica:"menor",objFijo:0.0,unidad:"",obj:null,real:[0.0,0.0,3.0,1.0,2.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,2.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,null]},
-    {label:"Scrap Met",area:"QA",logica:"menor",objFijo:2.0,unidad:"%",obj:null,real:[null,null,null,null,2.1,null,null,null,null,2.25,null,null,null,2.3,null,null,null,3.0,null,null,null,null,null,null,null,null,null,null,null,null,2.9,null,null,null,2.7,null,null,null,null,null]},
-    {label:"Scrap Ext",area:"QA",logica:"menor",objFijo:5.0,unidad:"%",obj:null,real:[null,null,null,null,6.3,null,null,null,null,8.32,null,null,null,5.9,null,null,null,5.6,null,null,null,null,null,null,null,null,null,null,null,null,4.7,null,null,null,4.6,null,null,null,null,null]},
-    {label:"Disponibilidad",area:"MAINT",logica:"mayor",objFijo:90.0,unidad:"%",obj:null,real:[96.6,98.3,98.6,99.0,92.0,95.0,85.0,89.9,92.6,85.0,87.0,88.0,91.0,91.8,90.0,90.4,89.0,91.0,90.4,90.0,93.8,84.5,88.0,96.5,90.8,96.0,94.0,98.0,81.2,90.6,89.7,89.0,92.0,84.5,88.8,89.0,83.6,90.5,88.6,null]},
-    {label:"MTTR",area:"MAINT",logica:"menor",objFijo:60.0,unidad:"min",obj:null,real:[49.0,25.3,25.0,16.0,72.0,57.0,190.0,45.0,29.6,70.0,52.0,67.0,39.0,39.0,37.0,35.0,43.0,44.0,41.0,38.0,18.0,57.0,42.0,42.0,112.0,43.0,31.0,41.0,96.0,42.0,51.0,64.0,44.0,82.0,49.0,47.0,86.0,64.0,51.0,null]},
-    {label:"MTBF",area:"MAINT",logica:"mayor",objFijo:120.0,unidad:"hr",obj:null,real:[61.0,120.0,123.0,122.0,98.0,97.0,114.0,111.0,115.0,100.0,102.0,101.0,103.0,105.0,104.0,105.0,91.0,95.0,104.0,93.0,95.0,79.0,89.0,110.0,172.0,170.0,105.0,216.0,128.5,60.0,84.0,100.0,80.0,77.0,66.0,58.0,85.0,142.0,70.0,null]},
-    {label:"Preventivas",area:"MAINT",logica:"mayor",objFijo:null,unidad:"",obj:[1.0,3.0,3.0,1.0,0.0,2.0,1.0,1.0,0.0,5.0,5.0,3.0,1.0,1.0,2.0,2.0,1.0,2.0,3.0,3.0,3.0,2.0,0.0,0.0,0.0,0.0,1.0,2.0,2.0,3.0,1.0,3.0,2.0,2.0,1.0,4.0,4.0,2.0,2.0,0.0],real:[1.0,3.0,3.0,1.0,0.0,2.0,1.0,1.0,0.0,5.0,5.0,3.0,1.0,1.0,2.0,2.0,1.0,2.0,3.0,3.0,3.0,2.0,0.0,0.0,0.0,0.0,1.0,2.0,1.0,3.0,1.0,3.0,2.0,2.0,0.0,4.0,4.0,2.0,2.0,null]},
-    {label:"Efic. canasta menos reservas",area:"SC",logica:"mayor",objFijo:80.0,unidad:"%",obj:null,real:[null,99.98,88.9,88.5,88.6,100.0,98.6,98.9,99.6,99.9,99.97,99.64,99.5,96.65,100.0,93.32,93.45,96.5,99.42,98.78,93.99,93.6,100.0,94.97,98.5,99.45,98.25,98.84,98.47,98.64,96.6,96.05,98.28,98.34,97.47,100.0,100.0,100.0,99.65,null]},
-    {label:"Efic. canasta menos reservas en CLP",area:"SC",logica:"mayor",objFijo:80.0,unidad:"%",obj:null,real:[null,99.86,91.82,91.47,93.34,100.0,99.78,99.8,99.93,99.7,99.97,99.89,99.8,99.93,100.0,92.34,91.94,95.6,98.86,97.4,92.18,96.66,100.0,99.56,99.61,98.53,95.12,97.87,96.16,96.31,94.51,96.15,96.53,97.51,97.92,100.0,100.0,100.0,99.9,null]},
-    {label:"Efic. canasta Rhona",area:"SC",logica:"mayor",objFijo:80.0,unidad:"%",obj:null,real:[null,null,100.0,99.2,79.2,null,92.9,78.9,78.9,null,84.28,84.28,85.48,85.43,100.0,89.59,96.12,95.94,null,null,93.8,92.14,null,null,98.28,96.11,null,null,null,99.31,94.93,null,null,54.15,53.83,null,null,100.0,99.06,null]},
-    {label:"Efic. canasta Rhona en CLP",area:"SC",logica:"mayor",objFijo:80.0,unidad:"%",obj:null,real:[null,null,100.0,99.3,87.2,null,94.93,86.9,86.9,null,91.74,91.74,92.0,91.75,100.0,80.61,95.58,94.92,null,null,92.18,90.02,null,null,96.33,97.68,null,null,null,99.38,92.52,null,null,83.28,82.59,null,null,100.0,92.45,null]},
-    {label:"Quiebre de MP",area:"SC",logica:"menor",objFijo:0.0,unidad:"%",obj:null,real:[4.44,4.44,4.44,8.89,6.67,4.44,4.44,2.22,8.89,17.78,17.78,15.56,15.56,6.67,13.38,17.78,20.0,20.0,15.56,13.33,17.78,4.44,4.76,4.76,9.52,11.9,14.29,14.29,16.67,14.29,11.63,6.98,9.3,6.98,6.98,9.3,11.63,11.63,11.63,null]}
-  ];
-const PLANES=[{desc:"Verificar condiciones contractuales con LEIBINGER (INTPRO) para comprobar que se respeten condiciones y verificar que sean compatibles con nuestra realidad operacional.",resp:"WOP - EVL",inicio:"04-05-2026",revision:"03-08-2026"}];
-const STOCK_ROWS=[
-  ["W27-26","TNG0001","TINTA NEGRA 70-134",4.0,2.86,4.7,1.0,"Se está gestionando la compra de 3 unidades que proveedor tienen en stock con vencimiento 31/01/2027"],
-  ["W27-26","XJ00100","NYLON",525.0,448.3,737.39,1.0,"Se esperará la llegada de nuevo nylon, lo anterior acordado con Daniel Molina"],
-  ["W27-26","XP00104","CORDON 45 KD 3,6 mm",567.6,371.9,611.72,1.0,"Se evaluará nueva compra por 1 o 2 ton,a mediados de junio llegaron 1000 kgs"],
-  ["W27-26","YB00090","CINTA POLYESTER 0,023X38",0.0,59.5,97.87,1.0,"MP descontinuada, ya llegó cinta de Polyexcel  500 kgs de YB00105 POLYESTER TAPE IN PAD (0.036X38MM)"],
-  ["W27-26","YB00100","CINTA POLYESTER 0,023X55",0.0,66.5,109.38,1.0,"MP descontinuada, ya llegará 10/07 app de china 100 kgs de YB00101 POLYESTER TAPE IN PAD (0.040X55MM)"],
-  ["W27-26","ZB00404","MB EVA AZUL",40.75,38.07,62.62,1.0,"Se gestionará la compra de 300 kg a nivel local (Top Color)"],
-  ["W28-26","TNG0001","TINTA NEGRA 70-134",4.0,2.86,4.7,1.0,"Se está gestionando la compra de 3 unidades que proveedor tienen en stock con vencimiento 31/01/2027"],
-  ["W28-26","XJ00100","NYLON",525.0,448.3,737.39,1.0,"Se esperará la llegada de nuevo nylon, lo anterior acordado con Daniel Molina"],
-  ["W28-26","XP00104","CORDON 45 KD 3,6 mm",567.6,371.9,611.72,1.0,"Se evaluará nueva compra por 1 o 2 ton,a mediados de junio llegaron 1000 kgs"],
-  ["W28-26","YB00090","CINTA POLYESTER 0,023X38",0.0,59.5,97.87,1.0,"MP descontinuada, ya llegó cinta de Polyexcel  500 kgs de YB00105 POLYESTER TAPE IN PAD (0.036X38MM)"],
-  ["W28-26","YB00100","CINTA POLYESTER 0,023X55",0.0,66.5,109.38,1.0,"MP descontinuada, ya llegará 10/07 app de china 1000 kgs de YB00101 POLYESTER TAPE IN PAD (0.040X55MM)"],
-  ["W28-26","ZB00404","MB EVA AZUL",40.75,38.07,62.62,1.0,"llegaron 300 kg a bpt stgo , se deben trasladar a Viña"],
-  ["W29-26","TNG0001","TINTA NEGRA 70-134",4.0,2.86,4.7,1.0,null],
-  ["W29-26","XJ00100","NYLON",525.0,448.3,737.39,1.0,"Se esperará la llegada de nuevo nylon, lo anterior acordado con Daniel Molina"],
-  ["W29-26","XP00104","CORDON 45 KD 3,6 mm",567.6,371.9,611.72,1.0,"Se comprará 1 ton a China"],
-  ["W29-26","YB00090","CINTA POLYESTER 0,023X38",0.0,59.5,97.87,1.0,"MP descontinuada, ya llegó cinta de Polyexcel  500 kgs de YB00105 POLYESTER TAPE IN PAD (0.036X38MM), se está gestionado cambio en indicador"],
-  ["W29-26","YB00100","CINTA POLYESTER 0,023X55",0.0,66.5,109.38,1.0,"MP descontinuada, hay 979,4 kgs de YB00101 POLYESTER TAPE IN PAD (0.040X55MM) emn stock, se está gestionando cambio en indicador"],
-  ["W29-26","ZB00105","MB PVC NEGRO",400.0,302.7,497.9,1.0,"entrega parcial de 1 ton en sucursal de Stgo esperando que mejore clima para trasladar a Viña"],
-  ["W29-26","ZB00404","MB EVA AZUL",40.75,38.07,62.62,1.0,"pedido por 300 kg en sucursal de Stgo esperando que mejore clima para trasladar a Viña"],
-  ["W30-26","MAKE000","MAKE UP",13.0,8.9,14.64,1.0,"Se hizo oc y se está gestionando la llegada de 18 unidades, actualmente hay 9 unidades en stock (31/07)"],
-  ["W30-26","SOL0000","SOLVENTE",7.0,5.4,8.88,1.0,"Se hizo oc y se está gestionando la llegada de 15 unidades, actualmente hay 5 unidades en stock (31/07)"],
-  ["W30-26","XJ00100","NYLON",525.0,448.3,737.39,1.0,"Se está esperando consolidación de carga en origen (USA) para despachar"],
-  ["W30-26","XP00104","CORDON 45 KD 3,6 mm",567.6,371.9,611.72,1.0,"Se hizo oc y se está gestionando la llegada de 1000 kg"],
-  ["W30-26","YB00090","CINTA POLYESTER 0,023X38",0.0,59.5,97.87,1.0,"MP descontinuada, hay 488 kgs de YB00105 POLYESTER TAPE IN PAD (0.036X38MM) en stock, se está gestionado cambio en indicador"],
-  ["W30-26","YB00100","CINTA POLYESTER 0,023X55",0.0,66.5,109.38,1.0,"MP descontinuada, hay 835 kgs de YB00101 POLYESTER TAPE IN PAD (0.040X55MM) emn stock, se está gestionando cambio en indicador"],
-  ["W31-26","MAKE000","MAKE UP",9.0,8.91,14.66,1.0,"Se hizo oc y se está gestionando la llegada de 18 unidades, actualmente hay 9 unidades en stock (31/07)"],
-  ["W31-26","SOL0000","SOLVENTE",5.0,5.43,8.93,1.0,"Se hizo oc y se está gestionando la llegada de 15 unidades, actualmente hay 5 unidades en stock (31/07)"],
-  ["W31-26","XJ00100","NYLON",525.0,424.48,698.21,1.0,"Se está esperando consolidación de carga en origen (USA) para despachar"],
-  ["W31-26","XP00104","CORDON 45 KD 3,6 mm",508.6,371.9,611.72,1.0,"Se hizo oc y se está gestionando la llegada de 1000 kg"],
-  ["W31-26","XP00105","CORDON 65KD 5 mm",485.9,310.6,510.89,1.0,"Se evaluará compra"],
-  ["W32-26","XJ00100","NYLON",0.0,424.48,698.21,1.0,"Eta muestra  03-09-26"],
-  ["W32-26","XP00104","CORDON 45 KD 3,6 mm",508.6,371.9,611.72,1.0,"oc por 1000 kg en curso"],
-  ["W32-26","XP00105","CORDON 65KD 5 mm",422.2,310.6,510.89,1.0,"oc por 1000 kg se enviará hoy"],
-  ["W33-26","XJ00100","NYLON",0.0,424.48,698.21,1.0,"Eta muestra  03-09-26"],
-  ["W33-26","XP00104","CORDON 45 KD 3,6 mm",508.6,371.9,611.72,1.0,"oc por 1000 kg en curso, eta 10/10"],
-  ["W33-26","XP00105","CORDON 65KD 5 mm",422.2,310.6,510.89,1.0,"oc por 1000 kg en curso, eta fines de octubre"],
-  ["W33-26","ZB00405","MB EVA NEGRO",100.0,179.9,295.91,1.0,"1050 kg en stock y 2 ton pedidas a proveedor para entrega parcial"],
-  ["W34-26","XJ00100","NYLON",0.0,424.48,698.21,1.0,"Eta muestra  03-09-26"],
-  ["W34-26","XP00104","CORDON 45 KD 3,6 mm",508.6,371.9,611.72,1.0,"oc por 1000 kg en curso, eta 10/10"],
-  ["W34-26","XP00105","CORDON 65KD 5 mm",422.2,310.6,510.89,1.0,"oc por 1000 kg en curso, eta fines de octubre"],
-  ["W35-26","XJ00100","NYLON",50.0,424.48,698.21,1.0,"Eta muestra  03-09-26; 07/09 en Covisa"],
-  ["W35-26","XP00104","CORDON 45 KD 3,6 mm",508.6,371.9,611.72,1.0,"oc por 1000 kg en curso, eta 12/10"],
-  ["W35-26","XP00105","CORDON 65KD 5 mm",422.2,310.6,510.89,1.0,"oc por 1000 kg en curso, eta 22/10"],
-  ["W36-26","XJ00100","NYLON",50.0,424.87,698.85,1.0,"14/09 en Covisa 350 kg, 200 kg llegan esta semana, en total 550 kg"],
-  ["W36-26","XP00104","CORDON 45 KD 3,6 mm",508.6,365.45,601.11,1.0,"oc por 1000 kg en curso, eta 12/10, muestra de Mariemberg en camino para evaluar"],
-  ["W36-26","XP00105","CORDON 65KD 5 mm",422.2,311.81,512.88,1.0,"oc por 1000 kg en curso, eta 22/10,  muestra de Mariemberg en camino para evaluar"],
-  ["W36-26","ZB00405","MB EVA NEGRO",200.0,273.28,449.5,1.0,"300 kg serán entregados esta semana y el 15/09 1200 kg"],
-  ["W37-26","XJ00100","NYLON",250.0,424.87,698.85,1.0,"Ya llegaron 200 kg a bmp y este miércoles llegan 350 kgs más"],
-  ["W37-26","XP00104","CORDON 45 KD 3,6 mm",508.6,365.45,601.11,1.0,"oc por 1000 kg en curso, eta 12/10, muestra de Mariemberg en camino para evaluar"],
-  ["W37-26","XP00105","CORDON 65KD 5 mm",356.8,311.81,512.88,1.0,"oc por 1000 kg en curso, eta 22/10,  muestra de Mariemberg en camino para evaluar"],
-  ["W37-26","ZB00105","MB PVC NEGRO",550.0,343.6,565.17,1.0,"1400 kg en bmp"],
-  ["W37-26","ZB00405","MB EVA NEGRO",50.0,273.28,449.5,1.0,"350 kg en stock y llegaron 1200 kg más"],
-  ["W38-26","SOL0000","SOLVENTE",0.0,4.89,8.04,1.0,"Llegan mañana a Covisa"],
-  ["W38-26","XJ00100","NYLON",600.0,424.87,698.85,1.0,"Se esperará resultado de uso de muestra que llegó para definir compras futuras"],
-  ["W38-26","XP00104","CORDON 45 KD 3,6 mm",399.0,365.45,601.11,1.0,"oc por 1000 kg en curso, eta 12/10, se enviarán nuestras muestra a Marienberg, pues las que se recibieron  de ellos no sirven"],
-  ["W38-26","XP00105","CORDON 65KD 5 mm",356.8,311.81,512.88,1.0,"oc por 1000 kg en curso, eta 22/10,  se enviarán nuestras muestra a Marienberg, pues las que se recibieron  de ellos no sirven"],
-  ["W38-26","XP00106","CORDON TIPO 1000",160.0,119.11,195.92,1.0,"Se debe salir a comprar stock en plaza a Marienberg"],
-  ["W39-26","MAKE000","MAKE UP",11.0,8.5,13.98,1.0,"Se está gestionado compra, esta semana deberían llegar a Covisa"],
-  ["W39-26","XJ00100","NYLON",50.0,424.87,698.85,1.0,"Se está gestionando la compra de 3 ton para entregas parciales dentro de un semestre"],
-  ["W39-26","XP00104","CORDON 45 KD 3,6 mm",399.0,365.45,601.11,1.0,"oc por 1000 kg en curso, eta 12/10, se enviaron nuestras muestra a Marienberg, pues las que se recibieron  de ellos no sirven"],
-  ["W39-26","XP00105","CORDON 65KD 5 mm",356.8,311.81,512.88,1.0,"oc por 1000 kg en curso, eta 22/10,  se enviaron nuestras muestra a Marienberg, pues las que se recibieron  de ellos no sirven"],
-  ["W39-26","XP00106","CORDON TIPO 1000",160.0,119.11,195.92,1.0,"llegan 216 kg el 30/09"]
-];
-const STOCK=STOCK_ROWS.map(r=>({semana:r[0],cod:r[1],desc:r[2],stock:r[3],ds:r[4],ss:r[5],q:r[6],com:r[7]}));
-const CICLOS_ROWS=[
-  ["W39-26","Ciclos Solicitud de compra(días)",3.0,2.7,111.1,36.0,3.0,8.3],
-  ["W39-26","Ciclos completos promedio Extranjeros (días)",50.0,57.7,86.7,29.0,5.0,17.2],
-  ["W39-26","Ciclos completos promedio Nacionales (días)",10.0,10.0,100.0,52.0,6.0,11.5],
-  ["W40-26","Ciclos Solicitud de compra(días)",null,null,null,null,null,null],
-  ["W40-26","Ciclos completos promedio Extranjeros (días)",null,null,null,null,null,null],
-  ["W40-26","Ciclos completos promedio Nacionales (días)",null,null,null,null,null,null]
-];
-const CICLOS=CICLOS_ROWS.map(r=>({semana:r[0],nombre:r[1],diasObj:r[2],diasProm:r[3],cumplPct:r[4],abiertos:r[5],atrasados:r[6],pctAtrasados:r[7]}));
-const SOLPED=[
-    {id:"5110",desc:"carpeta Plastica Formato A3",prop:"GUILLERMO",estado:"Abierto",comentario:"Comprado con caja chica",dias:16.0},
-    {id:"5153",desc:"Otros gastos de oficina (cafeteria, utensilios)",prop:"GUILLERMO",estado:"Abierto",comentario:"Comprado, llega 28 o 29, caja chica",dias:8.0},
-    {id:"5165",desc:"Manilla para puerta",prop:"GUILLERMO",estado:"Abierto",comentario:"Comprado, llega 28 o 29, caja chica",dias:7.0}
-  ];
-const PEDNAC=[
-    {pedido:"1005260",articulo:"S000072",desc:"Arriendo VRWP84 - Peugeot 5008 (Negro) SUV Full Size AT 5+2",proveedor:"GAMA LEASING OPERATIVO SPA",prop:"GUILLERMO TOLEDO ASTUDILLO",entrega:"30-04-2026",critico:"No",dias:126.0,comentario:"Proveedor no ha facturado"},
-    {pedido:"1006036",articulo:"H000034",desc:"Placa perforada stress cracking",proveedor:"M5 SOLUCIONES INDUSTRIALES LTDA",prop:"GUILLERMO TOLEDO ASTUDILLO",entrega:"17-09-2026",critico:"No",dias:53.0,comentario:"Recibida, falta facturacion"},
-    {pedido:"1005916",articulo:"BMTC420",desc:"TUBO CERAMICO Ø 4,20 MM",proveedor:"COM. RHEINTEK CHILE LTDA.",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"25-08-2026",critico:"Si",dias:32.0,comentario:"Entrega 30-09 en Viña"},
-    {pedido:"1005916",articulo:"BMTC310",desc:"TUBO CERAMICO Ø 3,10 MM",proveedor:"COM. RHEINTEK CHILE LTDA.",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"25-08-2026",critico:"Si",dias:32.0,comentario:"Entrega 30-09 en Viña"},
-    {pedido:"1005916",articulo:"BMTC295",desc:"TUBO CERAMICO Ø 2,95 MM",proveedor:"COM. RHEINTEK CHILE LTDA.",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"25-08-2026",critico:"Si",dias:32.0,comentario:"Entrega 30-09 en Viña"},
-    {pedido:"1005916",articulo:"BMTC235",desc:"TUBO CERAMICO Ø 2,35 MM",proveedor:"COM. RHEINTEK CHILE LTDA.",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"25-08-2026",critico:"Si",dias:32.0,comentario:"Entrega 30-09 en Viña"}
-  ];
-const PEDEX=[
-    {articulo:"S000149",desc:"Cuenta Metros laser Marca Proton y accesorios",proveedor:"Proton Products LATAM SA CV",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"19-06-2026",critico:"No",dias:71.0,comentario:"Entrega 28-09 en Viña"},
-    {articulo:"TR00002",desc:"LESMO DTO 800 WEAR STRIPS",proveedor:"NIAGARA COMPOSITES",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"19-09-2026",critico:"No",dias:29.0,comentario:"Entrega 28-09 en Viña"},
-    {articulo:"TR00001",desc:"LESMO DTO 800 CURVED",proveedor:"NIAGARA COMPOSITES",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"19-09-2026",critico:"No",dias:29.0,comentario:"Entrega 28-09 en Viña"},
-    {articulo:"R000037",desc:"Interruptor de proximidad Balluff original Bes 516-327-S4-C sensor de inducción EBAY",proveedor:"EBAY",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"08-09-2026",critico:"No",dias:13.0,comentario:"Entrega 14-10 en Viña"},
-    {articulo:"S000149",desc:"Activación OPC UA",proveedor:"MASCHINENFABRIK NIEHOFF GMBH & CO.",prop:"CESAR MAURICIO SAN MARTIN CHAMORRO",entrega:"17-09-2026",critico:"Si",dias:6.0,comentario:"Entrega 07-12 en Viña"}
-  ];
+let WK=[],IND=[],PLANES=[],STOCK=[],CICLOS=[],SOLPED=[],PEDNAC=[],PEDEX=[],charts={};
+let activeDetail='SOLPED';
+function setDetail(t){ activeDetail=t; render(); }
 
-let activeDetail='SOLPED',charts={};
-function setDetail(t){activeDetail=t;render();}
+function parseCSV(text){
+  const rows=[];
+  for(const line of text.trim().split('\n')){
+    const row=[];
+    let cur='',inQ=false;
+    for(let i=0;i<line.length;i++){
+      const c=line[i];
+      if(c==='"'){inQ=!inQ;}
+      else if(c===','&&!inQ){row.push(cur.trim());cur='';}
+      else cur+=c;
+    }
+    row.push(cur.trim());
+    rows.push(row);
+  }
+  return rows;
+}
 
-function weekNum(s){const m=String(s==null?'':s).match(/\d+/);return m?parseInt(m[0],10):null;}
-function stockDeSemana(wi){
-  const wLabel=(WK[wi]||'').trim().toLowerCase();
-  const exact=STOCK.filter(s=>(s.semana||'').trim().toLowerCase()===wLabel);
-  if(exact.length) return exact;
-  const t=weekNum(WK[wi]); if(t==null) return [];
-  return STOCK.filter(s=>weekNum(s.semana)===t);
+function parseNum(v){
+  if(!v||v==='-'||v==='') return null;
+  return parseFloat(v.replace(',','.').replace('%',''));
 }
-function ciclosDeSemana(wi){
-  const wLabel=(WK[wi]||'').trim().toLowerCase();
-  const exact=CICLOS.filter(c=>(c.semana||'').trim().toLowerCase()===wLabel);
-  if(exact.length) return exact;
-  const t=weekNum(WK[wi]); if(t==null) return [];
-  return CICLOS.filter(c=>weekNum(c.semana)===t);
+
+async function fetchCSV(url){
+  const r=await fetch(url);
+  const t=await r.text();
+  return parseCSV(t);
 }
-function ciclosTipos(){
-  const seen=new Set(),list=[];
-  for(const c of CICLOS){ if(c.nombre&&!seen.has(c.nombre)){seen.add(c.nombre);list.push(c.nombre);} }
-  return list;
+
+function indexByHeader(headerRow){
+  const map={};
+  headerRow.forEach((h,i)=>{ if(h) map[h.trim()]=i; });
+  return map;
 }
-function ciclosSemanas(){
-  const seen=new Set(),list=[];
-  for(const c of CICLOS){ if(c.semana&&!seen.has(c.semana)){seen.add(c.semana);list.push(c.semana);} }
-  return list;
+function col(row,map,name){
+  const i=map[name];
+  return i==null?null:(row[i]??null);
+}
+
+async function cargarDatos(){
+  document.getElementById('sum-grid').innerHTML='<div class="sk" style="grid-column:span 4"><div class="loading"><i class="ti ti-loader"></i> Cargando datos...</div></div>';
+  document.getElementById('body').innerHTML='';
+  try{
+    const [dataRows,planesRows,stockRows]=await Promise.all([
+      fetchCSV(URL_DATA),fetchCSV(URL_PLANES),fetchCSV(URL_STOCK)
+    ]);
+
+    WK=dataRows[0].slice(6);
+    IND=[];
+    const objRows=[];
+    for(let i=1;i<dataRows.length;i++){
+      const row=dataRows[i];
+      if(!row[0]) continue;
+      const vals=row.slice(6).map(v=>parseNum(v));
+      if(row[0].includes('OBJ')){
+        objRows.push({label:row[0],vals});
+      } else {
+        const labelBase=row[0].replace(' Real','');
+        const objRow=objRows.find(x=>x.label.replace(' OBJ','')===labelBase);
+        IND.push({
+          id:row[0].toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,10),
+          label:labelBase,area:row[1],logica:row[3],
+          objFijo:parseNum(row[4]),unidad:row[5]||'',
+          obj:objRow?objRow.vals:null,real:vals,
+        });
+      }
+    }
+
+    PLANES=[];
+    for(let i=1;i<planesRows.length;i++){
+      const r=planesRows[i];
+      if(!r[0]) continue;
+      PLANES.push({desc:r[0],resp:r[1]||'—',inicio:r[2]||'—',revision:r[3]||'—'});
+    }
+
+    STOCK=[];
+    for(let i=1;i<stockRows.length;i++){
+      const r=stockRows[i];
+      if(!r[0]) continue;
+      STOCK.push({semana:r[0]||'',cod:r[1],desc:r[2],stock:parseNum(r[3]),ds:parseNum(r[4]),ss:parseNum(r[5]),q:parseNum(r[6]),com:r[7]||''});
+    }
+
+    CICLOS=[];
+    if(URL_CICLOS && !URL_CICLOS.startsWith('REEMPLAZA')){
+      try{
+        const ciclosRows=await fetchCSV(URL_CICLOS);
+        for(let i=1;i<ciclosRows.length;i++){
+          const r=ciclosRows[i];
+          if(!r[0]||!r[1]) continue;
+          CICLOS.push({
+            semana:r[0]||'',nombre:r[1]||'',
+            diasObj:parseNum(r[2]),diasProm:parseNum(r[3]),cumplPct:parseNum(r[4]),
+            abiertos:parseNum(r[6]),atrasados:parseNum(r[7]),pctAtrasados:parseNum(r[8]),
+          });
+        }
+      }catch(e){ console.warn('No se pudo cargar Ciclos de compra:',e); }
+    }
+
+    SOLPED=[];
+    if(URL_SOLPED && !URL_SOLPED.startsWith('REEMPLAZA')){
+      try{
+        const rows=await fetchCSV(URL_SOLPED);
+        const hmap=indexByHeader(rows[0]);
+        for(let i=1;i<rows.length;i++){
+          const r=rows[i];
+          if(!r[0]) continue;
+          SOLPED.push({
+            id:col(r,hmap,'N° Solicitud de compra'),
+            desc:col(r,hmap,'Descripción'),
+            prop:col(r,hmap,'Propietario'),
+            estado:col(r,hmap,'Estado Solicitud de compra'),
+            comentario:col(r,hmap,'COMENTARIO NUEVO'),
+            dias:parseNum(col(r,hmap,'4. Días creación borrador Solped a Entrada de mercancía')),
+          });
+        }
+      }catch(e){ console.warn('No se pudo cargar SOLPED:',e); }
+    }
+
+    PEDNAC=[];
+    if(URL_PEDNAC && !URL_PEDNAC.startsWith('REEMPLAZA')){
+      try{
+        const rows=await fetchCSV(URL_PEDNAC);
+        const hmap=indexByHeader(rows[0]);
+        for(let i=1;i<rows.length;i++){
+          const r=rows[i];
+          if(!r[0]) continue;
+          PEDNAC.push({
+            pedido:col(r,hmap,'N° de pedido'),
+            articulo:col(r,hmap,'Número de artículo pedido'),
+            desc:col(r,hmap,'Descripción de artículo pedido'),
+            proveedor:col(r,hmap,'Nombre proveedor'),
+            prop:col(r,hmap,'Propietario de pedido'),
+            entrega:col(r,hmap,'Fecha entrega pedido'),
+            estadoMerc:col(r,hmap,'Estado entrada de mercancías'),
+            critico:col(r,hmap,'Proveedor crítico'),
+            comentario:col(r,hmap,'COMENTARIO NUEVO'),
+            dias:parseNum(col(r,hmap,'4. Días creación borrador Solped a Entrada de mercancía')),
+          });
+        }
+      }catch(e){ console.warn('No se pudo cargar PED NAC:',e); }
+    }
+
+    PEDEX=[];
+    if(URL_PEDEX && !URL_PEDEX.startsWith('REEMPLAZA')){
+      try{
+        const rows=await fetchCSV(URL_PEDEX);
+        const hmap=indexByHeader(rows[0]);
+        for(let i=1;i<rows.length;i++){
+          const r=rows[i];
+          if(!r[0]) continue;
+          PEDEX.push({
+            articulo:col(r,hmap,'Número de artículo pedido'),
+            desc:col(r,hmap,'Descripción de artículo pedido'),
+            proveedor:col(r,hmap,'Nombre proveedor'),
+            prop:col(r,hmap,'Propietario de pedido'),
+            entrega:col(r,hmap,'Fecha entrega pedido'),
+            estadoMerc:col(r,hmap,'Estado entrada de mercancías'),
+            critico:col(r,hmap,'Proveedor crítico'),
+            comentario:col(r,hmap,'COMENTARIO NUEVO'),
+            dias:parseNum(col(r,hmap,'4. Días creación borrador Solped a Entrada de mercancía')),
+          });
+        }
+      }catch(e){ console.warn('No se pudo cargar PED EX:',e); }
+    }
+
+    const sel=document.getElementById('wsel');
+    sel.innerHTML='';
+    WK.forEach((w,i)=>{const o=document.createElement('option');o.value=i;o.textContent=w;sel.appendChild(o);});
+    sel.value=WK.length-1;
+    render();
+
+  }catch(e){
+    document.getElementById('sum-grid').innerHTML=`<div class="sk" style="grid-column:span 4"><div class="loading" style="color:#f85149"><i class="ti ti-alert-triangle"></i> Error: ${e.message}</div></div>`;
+  }
 }
 
 function getObj(ind,wi){
@@ -265,16 +315,62 @@ function fmt(v){
   if(v==null) return '<span class="na-val">N/A</span>';
   return String(Number.isInteger(v)?v:parseFloat(v.toFixed(2)));
 }
+function spk(ind,wi){
+  const vals=ind.real.filter(x=>x!=null);
+  if(!vals.length) return '';
+  const mx=Math.max(...vals.map(Math.abs));
+  let b='';
+  for(let i=Math.max(0,wi-4);i<=wi;i++){
+    const v=ind.real[i],st=getSt(ind,i);
+    const col=st==='g'?'#3fb950':st==='r'?'#f85149':'#30363d';
+    const h=v==null?4:Math.max(6,Math.round(Math.abs(v)/Math.max(mx,1)*34));
+    b+=`<div class="sb" style="height:${h}px;background:${col}"></div>`;
+  }
+  return`<span class="spark">${b}</span>`;
+}
 function pillH(st,ff){
   if(st==='na') return '<span class="pill pn">N/A</span>';
   return`<span class="pill p${st}">${ff}%</span>`;
 }
-function critPill(v){
-  const s=(v||'').trim().toLowerCase();
-  if(s==='si'||s==='sí') return '<span class="crit-pill" style="background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)">Crítico</span>';
-  if(s==='no') return '<span class="crit-pill" style="background:rgba(63,185,80,.1);color:#3fb950;border:1px solid rgba(63,185,80,.25)">No</span>';
-  return '<span class="crit-pill" style="background:rgba(139,148,158,.1);color:#8b949e">—</span>';
+function fmtFecha(s){if(!s)return'—';const[y,m,d]=s.split('-');return`${d}-${m}-${y}`;}
+function weekNum(s){
+  const m=String(s==null?'':s).match(/\d+/);
+  return m?parseInt(m[0],10):null;
 }
+function stockDeSemana(wi){
+  const wLabel=(WK[wi]||'').trim().toLowerCase();
+  return STOCK.filter(s=>(s.semana||'').trim().toLowerCase()===wLabel);
+}
+function ciclosDeSemana(wi){
+  const wLabel=(WK[wi]||'').trim().toLowerCase();
+  const exact=CICLOS.filter(c=>(c.semana||'').trim().toLowerCase()===wLabel);
+  if(exact.length) return exact;
+  const target=weekNum(WK[wi]);
+  if(target==null) return [];
+  return CICLOS.filter(c=>weekNum(c.semana)===target);
+}
+function ciclosTipos(){
+  const seen=new Set(),list=[];
+  for(const c of CICLOS){ if(c.nombre&&!seen.has(c.nombre)){seen.add(c.nombre);list.push(c.nombre);} }
+  return list;
+}
+function ciclosSemanas(){
+  const seen=new Set(),list=[];
+  for(const c of CICLOS){ if(c.semana&&!seen.has(c.semana)){seen.add(c.semana);list.push(c.semana);} }
+  return list;
+}
+function agregarPlan(){
+  const desc=document.getElementById('pa-desc').value.trim();
+  const resp=document.getElementById('pa-resp').value.trim();
+  const ini=document.getElementById('pa-ini').value;
+  const rev=document.getElementById('pa-rev').value;
+  if(!desc){document.getElementById('pa-desc').style.border='1px solid #f85149';return;}
+  document.getElementById('pa-desc').style.border='1px solid #30363d';
+  PLANES.push({desc,resp:resp||'—',inicio:fmtFecha(ini)||'—',revision:fmtFecha(rev)||'—'});
+  ['pa-desc','pa-resp','pa-ini','pa-rev'].forEach(id=>document.getElementById(id).value='');
+  render();
+}
+function eliminarPlan(idx){PLANES.splice(idx,1);render();}
 
 function buildCharts(){
   Object.values(charts).forEach(c=>c.destroy());
@@ -288,79 +384,144 @@ function buildCharts(){
     charts[`ind${i}`]=new Chart(ctx,{
       type:'line',
       data:{labels:WK,datasets:[
-        {label:'Real',data:ind.real,borderColor:areaColor,backgroundColor:'transparent',borderWidth:2.5,pointRadius:2,pointHoverRadius:5,tension:0.3,spanGaps:true},
-        {label:'Objetivo',data:objSeries,borderColor:'#8b949e',backgroundColor:'transparent',borderWidth:2,borderDash:[6,4],pointRadius:0,tension:0,spanGaps:true}
+        {label:'Real',data:ind.real,borderColor:areaColor,backgroundColor:'transparent',
+         borderWidth:2.5,pointRadius:4,pointHoverRadius:6,tension:0.3,spanGaps:true},
+        {label:'Objetivo',data:objSeries,borderColor:'#8b949e',backgroundColor:'transparent',
+         borderWidth:2,borderDash:[6,4],pointRadius:0,tension:0,spanGaps:true}
       ]},
-      options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-        plugins:{legend:{display:true,position:'bottom',labels:{color:'#8b949e',boxWidth:16,font:{size:12}}},
-          tooltip:{backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#8b949e'}},
-        scales:{x:{ticks:{color:'#8b949e',font:{size:9},maxRotation:90,minRotation:90},grid:{color:'#21262d'}},
-                y:{ticks:{color:'#8b949e',font:{size:11}},grid:{color:'#21262d'}}}}
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{
+          legend:{display:true,position:'bottom',labels:{color:'#8b949e',boxWidth:16,font:{size:12,family:'Calibri'}}},
+          tooltip:{
+            backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,
+            titleColor:'#e6edf3',bodyColor:'#8b949e',
+            titleFont:{size:13,family:'Calibri'},bodyFont:{size:12,family:'Calibri'},
+            callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y??'N/A'}`}
+          }
+        },
+        scales:{
+          x:{ticks:{color:'#8b949e',font:{size:11,family:'Calibri'}},grid:{color:'#21262d'}},
+          y:{ticks:{color:'#8b949e',font:{size:11,family:'Calibri'}},grid:{color:'#21262d'}}
+        }
+      }
     });
   });
-  const tipos=ciclosTipos(), semC=ciclosSemanas();
+
+  const tipos=ciclosTipos();
+  const semanasCiclos=ciclosSemanas();
   tipos.forEach((tipo,i)=>{
     const canvas=document.getElementById(`chart-ciclo-${i}`);
     if(!canvas) return;
-    const real=semC.map(w=>{const row=CICLOS.find(c=>c.semana===w&&c.nombre===tipo); return row?row.diasProm:null;});
-    const obj=semC.map(w=>{const row=CICLOS.find(c=>c.semana===w&&c.nombre===tipo); return row?row.diasObj:null;});
+    const real=semanasCiclos.map(w=>{
+      const row=CICLOS.find(c=>c.semana===w&&c.nombre===tipo);
+      return row?row.diasProm:null;
+    });
+    const obj=semanasCiclos.map(w=>{
+      const row=CICLOS.find(c=>c.semana===w&&c.nombre===tipo);
+      return row?row.diasObj:null;
+    });
     const ctx=canvas.getContext('2d');
     charts[`ciclo${i}`]=new Chart(ctx,{
       type:'line',
-      data:{labels:semC,datasets:[
-        {label:'Días promedio',data:real,borderColor:'#39c5cf',backgroundColor:'transparent',borderWidth:2.5,pointRadius:4,pointHoverRadius:6,tension:0.3,spanGaps:true},
-        {label:'Días objetivo',data:obj,borderColor:'#8b949e',backgroundColor:'transparent',borderWidth:2,borderDash:[6,4],pointRadius:0,tension:0,spanGaps:true}
+      data:{labels:semanasCiclos,datasets:[
+        {label:'Días promedio',data:real,borderColor:'#39c5cf',backgroundColor:'transparent',
+         borderWidth:2.5,pointRadius:4,pointHoverRadius:6,tension:0.3,spanGaps:true},
+        {label:'Días objetivo',data:obj,borderColor:'#8b949e',backgroundColor:'transparent',
+         borderWidth:2,borderDash:[6,4],pointRadius:0,tension:0,spanGaps:true}
       ]},
-      options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-        plugins:{legend:{display:true,position:'bottom',labels:{color:'#8b949e',boxWidth:16,font:{size:12}}},
-          tooltip:{backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#8b949e'}},
-        scales:{x:{ticks:{color:'#8b949e',font:{size:11}},grid:{color:'#21262d'}},
-                y:{ticks:{color:'#8b949e',font:{size:11}},grid:{color:'#21262d'}}}}
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{
+          legend:{display:true,position:'bottom',labels:{color:'#8b949e',boxWidth:16,font:{size:12,family:'Calibri'}}},
+          tooltip:{
+            backgroundColor:'#161b22',borderColor:'#30363d',borderWidth:1,
+            titleColor:'#e6edf3',bodyColor:'#8b949e',
+            titleFont:{size:13,family:'Calibri'},bodyFont:{size:12,family:'Calibri'},
+            callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y??'N/A'}`}
+          }
+        },
+        scales:{
+          x:{ticks:{color:'#8b949e',font:{size:11,family:'Calibri'}},grid:{color:'#21262d'}},
+          y:{ticks:{color:'#8b949e',font:{size:11,family:'Calibri'}},grid:{color:'#21262d'}}
+        }
+      }
     });
   });
 }
 
 function render(){
-  const sel=document.getElementById('wsel');
-  if(!sel.options.length){ WK.forEach((w,i)=>sel.add(new Option(w,i))); sel.value=WK.length-1; }
-  const wi=parseInt(sel.value);
+  const wi=parseInt(document.getElementById('wsel').value);
   const measured=IND.filter(i=>getSt(i,wi)!=='na');
   const verde=measured.filter(i=>getSt(i,wi)==='g').length;
   const rojo=measured.filter(i=>getSt(i,wi)==='r').length;
   const pct=measured.length?Math.round(verde/measured.length*100):0;
   const stockSem=stockDeSemana(wi);
   const qA=stockSem.filter(s=>s.q>0).length;
-  const ciclosSem=ciclosDeSemana(wi);
-  const ciclosAtr=ciclosSem.filter(c=>c.atrasados>0).length;
 
   document.getElementById('sum-grid').innerHTML=`
-    <div class="sk sk-green"><div class="sk-lbl"><i class="ti ti-circle-check" style="font-size:20px;margin-right:6px"></i>Cumpliendo</div>
-      <div class="sk-num">${verde}</div><div class="sk-sub">de ${measured.length} indicadores medidos</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(verde/Math.max(measured.length,1)*100)}%"></div></div></div>
-    <div class="sk sk-red"><div class="sk-lbl"><i class="ti ti-circle-x" style="font-size:20px;margin-right:6px"></i>Con desvío</div>
-      <div class="sk-num">${rojo}</div><div class="sk-sub">de ${measured.length} indicadores medidos</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(rojo/Math.max(measured.length,1)*100)}%"></div></div></div>
-    <div class="sk sk-blue"><div class="sk-lbl"><i class="ti ti-percentage" style="font-size:20px;margin-right:6px"></i>Cumplimiento global</div>
-      <div class="sk-num">${pct}%</div><div class="sk-sub">${WK[wi]}</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${pct}%"></div></div></div>
-    <div class="sk sk-amber"><div class="sk-lbl"><i class="ti ti-alert-triangle" style="font-size:20px;margin-right:6px"></i>Quiebres MP activos</div>
-      <div class="sk-num">${qA}</div><div class="sk-sub">de ${stockSem.length} ítems registrados</div>
-      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(qA/Math.max(stockSem.length,1)*100)}%"></div></div></div>`;
+    <div class="sk sk-green">
+      <div class="sk-lbl"><i class="ti ti-circle-check" style="font-size:20px;margin-right:6px"></i>Cumpliendo</div>
+      <div class="sk-num">${verde}</div>
+      <div class="sk-sub">de ${measured.length} indicadores medidos</div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(verde/Math.max(measured.length,1)*100)}%"></div></div>
+    </div>
+    <div class="sk sk-red">
+      <div class="sk-lbl"><i class="ti ti-circle-x" style="font-size:20px;margin-right:6px"></i>Con desvío</div>
+      <div class="sk-num">${rojo}</div>
+      <div class="sk-sub">de ${measured.length} indicadores medidos</div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(rojo/Math.max(measured.length,1)*100)}%"></div></div>
+    </div>
+    <div class="sk sk-blue">
+      <div class="sk-lbl"><i class="ti ti-percentage" style="font-size:20px;margin-right:6px"></i>Cumplimiento global</div>
+      <div class="sk-num">${pct}%</div>
+      <div class="sk-sub">${WK[wi]}</div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="sk sk-amber">
+      <div class="sk-lbl"><i class="ti ti-alert-triangle" style="font-size:20px;margin-right:6px"></i>Quiebres MP activos</div>
+      <div class="sk-num">${qA}</div>
+      <div class="sk-sub">ítems bajo stock de seguridad</div>
+      <div class="sk-prog"><div class="sk-fill" style="width:${Math.round(qA/Math.max(stockSem.length,1)*100)}%"></div></div>
+    </div>`;
 
   let html='';
 
   html+=`<div class="area-block area-pa">
-    <div class="area-head"><i class="ti ti-clipboard-list area-icon" style="color:#58a6ff"></i>
-    <span class="area-title">Planes de acción</span>
-    <div class="area-counts"><span class="cnt" style="background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.25)">${PLANES.length} activo${PLANES.length!==1?'s':''}</span></div></div>
-    <table><thead><tr><th style="width:46%">Descripción</th><th style="width:18%">Responsable</th><th style="width:18%">Inicio</th><th style="width:18%">Revisión</th></tr></thead><tbody>`;
+    <div class="area-head">
+      <i class="ti ti-clipboard-list area-icon" style="color:#58a6ff"></i>
+      <span class="area-title">Planes de acción</span>
+      <div class="area-counts"><span class="cnt" style="background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.25)">${PLANES.length} activo${PLANES.length!==1?'s':''}</span></div>
+    </div>
+    <table><thead><tr>
+      <th style="width:46%">Descripción</th>
+      <th style="width:18%">Responsable</th>
+      <th style="width:18%">Inicio</th>
+      <th style="width:18%">Revisión</th>
+    </tr></thead><tbody>`;
   PLANES.forEach(p=>{
-    html+=`<tr><td style="color:#cdd9e5;font-weight:500">${p.desc}</td>
-      <td style="color:#8b949e;font-weight:600">${p.resp}</td>
-      <td style="color:#8b949e;font-weight:600">${p.inicio}</td>
-      <td style="color:#8b949e;font-weight:600">${p.revision}</td></tr>`;
+    html+=`<tr>
+      <td style="font-size:20px;color:#cdd9e5;font-weight:500">${p.desc}</td>
+      <td style="font-size:20px;color:#8b949e;font-weight:600">${p.resp}</td>
+      <td style="font-size:20px;color:#8b949e;font-weight:600">${p.inicio}</td>
+      <td style="font-size:20px;color:#8b949e;font-weight:600">${p.revision}</td>
+    </tr>`;
   });
-  html+=`</tbody></table></div>`;
+  html+=`</tbody></table>
+    <div style="padding:18px 24px;border-top:1px solid #21262d;display:grid;grid-template-columns:3fr 1fr 1fr 1fr auto;gap:10px;align-items:end">
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Descripción</div>
+        <input id="pa-desc" type="text" placeholder="Descripción del plan..." style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Responsable</div>
+        <input id="pa-resp" type="text" placeholder="Ej: WOP-EVL" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Inicio</div>
+        <input id="pa-ini" type="date" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <div><div style="font-size:14px;color:#8b949e;font-weight:700;margin-bottom:6px;text-transform:uppercase">Revisión</div>
+        <input id="pa-rev" type="date" style="width:100%;font-size:17px;padding:9px 12px;background:#0d1117;color:#e6edf3;border:1px solid #30363d;border-radius:7px;outline:none;font-family:'Calibri',sans-serif"></div>
+      <button onclick="agregarPlan()" style="font-size:17px;font-weight:700;padding:10px 20px;background:#58a6ff;color:#0d1117;border:none;border-radius:7px;cursor:pointer;font-family:'Calibri',sans-serif;white-space:nowrap"><i class="ti ti-plus" style="margin-right:4px"></i>Agregar</button>
+    </div>
+  </div>`;
 
   for(const area of ['PROD','QA','MAINT','SC']){
     const cfg=ACFG[area];
@@ -368,55 +529,102 @@ function render(){
     const av=rows.filter(r=>getSt(r,wi)==='g').length;
     const ar=rows.filter(r=>getSt(r,wi)==='r').length;
     html+=`<div class="area-block ${cfg.cls}">
-      <div class="area-head"><i class="ti ${cfg.icon} area-icon" style="color:${cfg.color}"></i>
-      <span class="area-title">${cfg.label}</span>
-      <div class="area-counts"><span class="cnt cnt-g">${av} ✓</span><span class="cnt cnt-r">${ar} ✗</span></div></div>
-      <table><thead><tr><th style="width:40%">Indicador</th><th class="r" style="width:20%">Objetivo</th><th class="r" style="width:20%">Real</th><th class="c" style="width:20%">Cumplimiento</th></tr></thead><tbody>`;
+      <div class="area-head">
+        <i class="ti ${cfg.icon} area-icon" style="color:${cfg.color}"></i>
+        <span class="area-title">${cfg.label}</span>
+        <div class="area-counts">
+          <span class="cnt cnt-g">${av} ✓</span>
+          <span class="cnt cnt-r">${ar} ✗</span>
+        </div>
+      </div>
+      <table><thead><tr>
+        <th style="width:36%">Indicador</th>
+        <th class="r" style="width:14%">Objetivo</th>
+        <th class="r" style="width:14%">Real</th>
+        <th class="c" style="width:18%">Cumplimiento</th>
+        <th class="c" style="width:18%">Tendencia</th>
+      </tr></thead><tbody>`;
     for(const ind of rows){
       const st=getSt(ind,wi),ff=getFF(ind,wi);
       const unitLabel=ind.unidad?`<span class="ind-unit">(${ind.unidad})</span>`:'';
-      html+=`<tr><td><span class="ind-name">${ind.label}</span>${unitLabel}</td>
+      html+=`<tr>
+        <td><span class="ind-name">${ind.label}</span>${unitLabel}</td>
         <td class="r"><span class="val-obj">${fmt(getObj(ind,wi))}</span></td>
         <td class="r"><span class="val-real">${fmt(ind.real[wi])}</span></td>
-        <td class="c">${pillH(st,ff)}</td></tr>`;
+        <td class="c">${pillH(st,ff)}</td>
+        <td class="c">${spk(ind,wi)}</td>
+      </tr>`;
     }
     html+=`</tbody></table></div>`;
   }
 
   html+=`<div class="area-block area-stk">
-    <div class="area-head"><i class="ti ti-box area-icon" style="color:#d29922"></i>
-    <span class="area-title">Quiebres de stock MP</span>
-    <span style="font-size:16px;color:#8b949e;font-weight:600;margin-left:10px">— ${WK[wi]}</span>
-    <div class="area-counts"><span class="cnt cnt-r">${qA} activos</span></div></div>
-    <table><thead><tr><th style="width:10%">Código</th><th style="width:24%">Descripción</th>
-    <th class="r" style="width:9%">Stock</th><th class="r" style="width:10%">Desv.Est.</th><th class="r" style="width:9%">SS</th>
-    <th class="c" style="width:10%">Quiebre</th><th style="width:28%">Comentario</th></tr></thead><tbody>`;
-  if(!stockSem.length) html+=`<tr><td colspan="7" style="text-align:center;color:#8b949e;padding:30px">Sin registro de stock para esta semana</td></tr>`;
+    <div class="area-head">
+      <i class="ti ti-box area-icon" style="color:#d29922"></i>
+      <span class="area-title">Quiebres de stock MP</span>
+      <span style="font-size:16px;color:#8b949e;font-weight:600;margin-left:10px">— ${WK[wi]||''}</span>
+      <div class="area-counts"><span class="cnt cnt-r">${qA} activos</span></div>
+    </div>
+    <table><thead><tr>
+      <th style="width:10%">Código</th>
+      <th style="width:22%">Descripción</th>
+      <th class="r" style="width:9%">Stock</th>
+      <th class="r" style="width:10%">Desv.Est.</th>
+      <th class="r" style="width:9%">SS</th>
+      <th class="c" style="width:10%">Quiebre</th>
+      <th style="width:30%">Comentario</th>
+    </tr></thead><tbody>`;
+  if(!stockSem.length){
+    html+=`<tr><td colspan="7" style="text-align:center;color:#8b949e;font-size:18px;padding:30px">Sin registro de stock para esta semana</td></tr>`;
+  }
   for(const s of stockSem){
-    const qb=s.q>0?`<span class="pill pr">${s.q}</span>`:`<span class="pill pg">0</span>`;
-    html+=`<tr><td><span class="cod">${s.cod}</span></td><td>${s.desc}</td>
-      <td class="r" style="color:#8b949e">${s.stock!=null&&!isNaN(s.stock)?s.stock.toFixed(2):'—'}</td>
-      <td class="r" style="color:#8b949e">${s.ds!=null&&!isNaN(s.ds)?s.ds.toFixed(2):'—'}</td>
-      <td class="r" style="color:#8b949e">${s.ss!=null&&!isNaN(s.ss)?s.ss.toFixed(2):'—'}</td>
-      <td class="c">${qb}</td><td style="font-size:16px;color:#8b949e">${s.com}</td></tr>`;
+    const qb=s.q>0?`<span class="pill pr" style="min-width:48px">${s.q}</span>`:`<span class="pill pg" style="min-width:48px">0</span>`;
+    html+=`<tr>
+      <td><span class="cod">${s.cod}</span></td>
+      <td style="font-size:20px;color:#cdd9e5;font-weight:500">${s.desc}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.stock!=null&&!isNaN(s.stock)?s.stock.toFixed(2):'—'}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.ds!=null&&!isNaN(s.ds)?s.ds.toFixed(2):'—'}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${s.ss!=null&&!isNaN(s.ss)?s.ss.toFixed(2):'—'}</td>
+      <td class="c">${qb}</td>
+      <td style="font-size:17px;color:#8b949e">${s.com}</td>
+    </tr>`;
   }
   html+=`</tbody></table></div>`;
 
+  const ciclosSem=ciclosDeSemana(wi);
+  const ciclosAtr=ciclosSem.filter(c=>c.atrasados>0).length;
   html+=`<div class="area-block area-ciclos">
-    <div class="area-head"><i class="ti ti-truck-delivery area-icon" style="color:#39c5cf"></i>
-    <span class="area-title">Ciclos de compra</span>
-    <span style="font-size:16px;color:#8b949e;font-weight:600;margin-left:10px">— ${WK[wi]}</span>
-    <div class="area-counts"><span class="cnt cnt-r">${ciclosAtr} con atraso</span></div></div>
-    <table><thead><tr><th style="width:34%">Tipo de ciclo</th><th class="r" style="width:12%">Días obj.</th>
-    <th class="r" style="width:12%">Días prom.</th><th class="c" style="width:14%">Cumplimiento</th>
-    <th class="r" style="width:14%">Abiertos</th><th class="c" style="width:14%">Con atraso</th></tr></thead><tbody>`;
-  if(!ciclosSem.length) html+=`<tr><td colspan="6" style="text-align:center;color:#8b949e;padding:30px">Sin registro para esta semana</td></tr>`;
+    <div class="area-head">
+      <i class="ti ti-truck-delivery area-icon" style="color:#39c5cf"></i>
+      <span class="area-title">Ciclos de compra</span>
+      <span style="font-size:16px;color:#8b949e;font-weight:600;margin-left:10px">— ${WK[wi]||''}</span>
+      <div class="area-counts"><span class="cnt cnt-r">${ciclosAtr} con atraso</span></div>
+    </div>
+    <table><thead><tr>
+      <th style="width:28%">Tipo de ciclo</th>
+      <th class="r" style="width:12%">Días objetivo</th>
+      <th class="r" style="width:12%">Días promedio</th>
+      <th class="c" style="width:14%">Cumplimiento</th>
+      <th class="r" style="width:12%">Ciclos abiertos</th>
+      <th class="r" style="width:10%">Con atraso</th>
+      <th class="c" style="width:12%">% atraso</th>
+    </tr></thead><tbody>`;
+  if(!ciclosSem.length){
+    html+=`<tr><td colspan="7" style="text-align:center;color:#8b949e;font-size:18px;padding:30px">Sin registro de ciclos de compra para esta semana</td></tr>`;
+  }
   for(const c of ciclosSem){
-    const ok=c.cumplPct!=null&&c.cumplPct>=100;
-    const cumplPill=c.cumplPct!=null?`<span class="pill ${ok?'pg':'pr'}">${c.cumplPct}%</span>`:'<span class="pill pn">N/A</span>';
-    const atrPill=c.atrasados!=null?(c.atrasados>0?`<span class="pill pr">${c.atrasados}</span>`:`<span class="pill pg">0</span>`):'<span class="pill pn">—</span>';
-    html+=`<tr><td>${c.nombre}</td><td class="r">${c.diasObj??'—'}</td><td class="r">${c.diasProm??'—'}</td>
-      <td class="c">${cumplPill}</td><td class="r">${c.abiertos??'—'}</td><td class="c">${atrPill}</td></tr>`;
+    const cumplOk=c.cumplPct!=null&&!isNaN(c.cumplPct)&&c.cumplPct>=100;
+    const cumplPill=c.cumplPct!=null&&!isNaN(c.cumplPct)?`<span class="pill ${cumplOk?'pg':'pr'}">${c.cumplPct}%</span>`:'<span class="pill pn">N/A</span>';
+    const atrPill=c.atrasados>0?`<span class="pill pr" style="min-width:48px">${c.atrasados}</span>`:`<span class="pill pg" style="min-width:48px">0</span>`;
+    html+=`<tr>
+      <td style="font-size:20px;color:#cdd9e5;font-weight:500">${c.nombre}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${c.diasObj!=null&&!isNaN(c.diasObj)?c.diasObj:'—'}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${c.diasProm!=null&&!isNaN(c.diasProm)?c.diasProm:'—'}</td>
+      <td class="c">${cumplPill}</td>
+      <td class="r" style="font-size:20px;color:#8b949e;font-weight:600">${c.abiertos!=null&&!isNaN(c.abiertos)?c.abiertos:'—'}</td>
+      <td class="c">${atrPill}</td>
+      <td class="c" style="font-size:20px;color:#8b949e;font-weight:600">${c.pctAtrasados!=null&&!isNaN(c.pctAtrasados)?c.pctAtrasados.toFixed(2)+'%':'—'}</td>
+    </tr>`;
   }
   html+=`</tbody></table>`;
 
@@ -424,47 +632,101 @@ function render(){
     <button class="tab-btn ${activeDetail==='SOLPED'?'tab-active':''}" onclick="setDetail('SOLPED')">Solicitudes de compra (${SOLPED.length})</button>
     <button class="tab-btn ${activeDetail==='PEDNAC'?'tab-active':''}" onclick="setDetail('PEDNAC')">Pedidos nacionales (${PEDNAC.length})</button>
     <button class="tab-btn ${activeDetail==='PEDEX'?'tab-active':''}" onclick="setDetail('PEDEX')">Pedidos extranjeros (${PEDEX.length})</button>
-  </div><div class="tab-wrap">`;
+  </div>
+  <div class="tab-wrap">`;
+
+  function critPill(v){
+    const s=(v||'').trim().toLowerCase();
+    if(s==='si'||s==='sí') return '<span class="crit-pill" style="background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)">Crítico</span>';
+    if(s==='no') return '<span class="crit-pill" style="background:rgba(63,185,80,.1);color:#3fb950;border:1px solid rgba(63,185,80,.25)">No</span>';
+    return '<span class="crit-pill" style="background:rgba(139,148,158,.1);color:#8b949e">—</span>';
+  }
+
   if(activeDetail==='SOLPED'){
-    html+=`<table><thead><tr><th style="width:10%">N° Solped</th><th style="width:34%">Descripción</th>
-      <th style="width:16%">Propietario</th><th style="width:14%">Estado</th><th class="r" style="width:8%">Días</th><th style="width:18%">Comentario</th></tr></thead><tbody>`;
-    for(const s of SOLPED) html+=`<tr><td><span class="cod">${s.id??'—'}</span></td><td>${s.desc??'—'}</td>
-      <td style="color:#8b949e">${s.prop??'—'}</td><td style="color:#8b949e">${s.estado??'—'}</td>
-      <td class="r" style="color:#8b949e">${s.dias??'—'}</td><td style="font-size:16px;color:#8b949e">${s.comentario??'—'}</td></tr>`;
+    html+=`<table><thead><tr>
+      <th style="width:10%">N° Solped</th><th style="width:34%">Descripción</th>
+      <th style="width:16%">Propietario</th><th style="width:14%">Estado</th>
+      <th class="r" style="width:8%">Días</th><th style="width:18%">Comentario</th>
+    </tr></thead><tbody>`;
+    if(!SOLPED.length) html+=`<tr><td colspan="6" style="text-align:center;color:#8b949e;font-size:18px;padding:30px">Sin registros de solicitudes de compra</td></tr>`;
+    for(const s of SOLPED){
+      html+=`<tr>
+        <td><span class="cod">${s.id??'—'}</span></td>
+        <td style="font-size:19px;color:#cdd9e5;font-weight:500">${s.desc??'—'}</td>
+        <td style="font-size:19px;color:#8b949e;font-weight:600">${s.prop??'—'}</td>
+        <td style="font-size:19px;color:#8b949e;font-weight:600">${s.estado??'—'}</td>
+        <td class="r" style="font-size:19px;color:#8b949e;font-weight:600">${s.dias!=null&&!isNaN(s.dias)?s.dias:'—'}</td>
+        <td style="font-size:17px;color:#8b949e">${s.comentario??'—'}</td>
+      </tr>`;
+    }
     html+=`</tbody></table>`;
   } else if(activeDetail==='PEDNAC'){
-    html+=`<table><thead><tr><th style="width:9%">N° Pedido</th><th style="width:10%">Artículo</th><th style="width:22%">Descripción</th>
-      <th style="width:16%">Proveedor</th><th style="width:14%">Propietario</th><th style="width:9%">Entrega</th>
-      <th style="width:9%">Crítico</th><th class="r" style="width:6%">Días</th></tr></thead><tbody>`;
-    for(const p of PEDNAC) html+=`<tr><td><span class="cod">${p.pedido??'—'}</span></td><td><span class="cod">${p.articulo??'—'}</span></td>
-      <td>${p.desc??'—'}</td><td style="font-size:16px;color:#8b949e">${p.proveedor??'—'}</td>
-      <td style="font-size:16px;color:#8b949e">${p.prop??'—'}</td><td style="font-size:16px;color:#8b949e">${p.entrega??'—'}</td>
-      <td>${critPill(p.critico)}</td><td class="r" style="color:#8b949e">${p.dias??'—'}</td></tr>`;
+    html+=`<table><thead><tr>
+      <th style="width:8%">N° Pedido</th><th style="width:10%">Artículo</th><th style="width:22%">Descripción</th>
+      <th style="width:14%">Proveedor</th><th style="width:13%">Propietario</th><th style="width:9%">Entrega</th>
+      <th style="width:9%">Crítico</th><th class="r" style="width:6%">Días</th><th style="width:15%">Comentario</th>
+    </tr></thead><tbody>`;
+    if(!PEDNAC.length) html+=`<tr><td colspan="9" style="text-align:center;color:#8b949e;font-size:18px;padding:30px">Sin registros de pedidos nacionales</td></tr>`;
+    for(const p of PEDNAC){
+      html+=`<tr>
+        <td><span class="cod">${p.pedido??'—'}</span></td>
+        <td><span class="cod">${p.articulo??'—'}</span></td>
+        <td style="font-size:19px;color:#cdd9e5;font-weight:500">${p.desc??'—'}</td>
+        <td style="font-size:18px;color:#8b949e;font-weight:600">${p.proveedor??'—'}</td>
+        <td style="font-size:18px;color:#8b949e;font-weight:600">${p.prop??'—'}</td>
+        <td style="font-size:18px;color:#8b949e;font-weight:600">${p.entrega??'—'}</td>
+        <td>${critPill(p.critico)}</td>
+        <td class="r" style="font-size:19px;color:#8b949e;font-weight:600">${p.dias!=null&&!isNaN(p.dias)?p.dias:'—'}</td>
+        <td style="font-size:17px;color:#8b949e">${p.comentario??'—'}</td>
+      </tr>`;
+    }
     html+=`</tbody></table>`;
   } else if(activeDetail==='PEDEX'){
-    html+=`<table><thead><tr><th style="width:11%">Artículo</th><th style="width:28%">Descripción</th>
-      <th style="width:18%">Proveedor</th><th style="width:16%">Propietario</th><th style="width:10%">Entrega</th>
-      <th style="width:10%">Crítico</th><th class="r" style="width:7%">Días</th></tr></thead><tbody>`;
-    for(const p of PEDEX) html+=`<tr><td><span class="cod">${p.articulo??'—'}</span></td><td>${p.desc??'—'}</td>
-      <td style="font-size:16px;color:#8b949e">${p.proveedor??'—'}</td><td style="font-size:16px;color:#8b949e">${p.prop??'—'}</td>
-      <td style="font-size:16px;color:#8b949e">${p.entrega??'—'}</td><td>${critPill(p.critico)}</td>
-      <td class="r" style="color:#8b949e">${p.dias??'—'}</td></tr>`;
+    html+=`<table><thead><tr>
+      <th style="width:10%">Artículo</th><th style="width:24%">Descripción</th>
+      <th style="width:16%">Proveedor</th><th style="width:14%">Propietario</th><th style="width:9%">Entrega</th>
+      <th style="width:9%">Crítico</th><th class="r" style="width:6%">Días</th><th style="width:16%">Comentario</th>
+    </tr></thead><tbody>`;
+    if(!PEDEX.length) html+=`<tr><td colspan="8" style="text-align:center;color:#8b949e;font-size:18px;padding:30px">Sin registros de pedidos extranjeros</td></tr>`;
+    for(const p of PEDEX){
+      html+=`<tr>
+        <td><span class="cod">${p.articulo??'—'}</span></td>
+        <td style="font-size:19px;color:#cdd9e5;font-weight:500">${p.desc??'—'}</td>
+        <td style="font-size:18px;color:#8b949e;font-weight:600">${p.proveedor??'—'}</td>
+        <td style="font-size:18px;color:#8b949e;font-weight:600">${p.prop??'—'}</td>
+        <td style="font-size:18px;color:#8b949e;font-weight:600">${p.entrega??'—'}</td>
+        <td>${critPill(p.critico)}</td>
+        <td class="r" style="font-size:19px;color:#8b949e;font-weight:600">${p.dias!=null&&!isNaN(p.dias)?p.dias:'—'}</td>
+        <td style="font-size:17px;color:#8b949e">${p.comentario??'—'}</td>
+      </tr>`;
+    }
     html+=`</tbody></table>`;
   }
   html+=`</div></div>`;
 
   html+=`<div class="area-block area-chart">
-    <div class="area-head"><i class="ti ti-chart-line area-icon" style="color:#bc8cff"></i>
-    <span class="area-title">Tendencias por indicador</span></div>
+    <div class="area-head">
+      <i class="ti ti-chart-line area-icon" style="color:#bc8cff"></i>
+      <span class="area-title">Tendencias por indicador</span>
+    </div>
     <div class="ind-charts-grid">`;
   IND.forEach((ind,i)=>{
     const unitLabel=ind.unidad?`<span class="ind-unit">(${ind.unidad})</span>`:'';
-    html+=`<div class="ind-chart-card"><div class="ind-chart-title">${ind.label}${unitLabel}</div>
-      <div style="position:relative;height:230px"><canvas id="chart-ind-${i}"></canvas></div></div>`;
+    html+=`<div class="ind-chart-card">
+      <div class="ind-chart-title">${ind.label}${unitLabel}</div>
+      <div style="position:relative;height:230px">
+        <canvas id="chart-ind-${i}" role="img" aria-label="Tendencia ${ind.label}"></canvas>
+      </div>
+    </div>`;
   });
-  ciclosTipos().forEach((tipo,i)=>{
-    html+=`<div class="ind-chart-card"><div class="ind-chart-title">${tipo} <span class="ind-unit">(días)</span></div>
-      <div style="position:relative;height:230px"><canvas id="chart-ciclo-${i}"></canvas></div></div>`;
+  const tipos=ciclosTipos();
+  tipos.forEach((tipo,i)=>{
+    html+=`<div class="ind-chart-card">
+      <div class="ind-chart-title">${tipo} <span class="ind-unit">(días)</span></div>
+      <div style="position:relative;height:230px">
+        <canvas id="chart-ciclo-${i}" role="img" aria-label="Tendencia ${tipo}"></canvas>
+      </div>
+    </div>`;
   });
   html+=`</div></div>`;
 
@@ -472,7 +734,7 @@ function render(){
   setTimeout(buildCharts,50);
 }
 
-render();
+cargarDatos();
 </script>
 </body>
 </html>
